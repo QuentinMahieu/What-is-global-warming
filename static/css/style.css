@@ -1,0 +1,174 @@
+.iframeContainer {
+  padding: 20px;
+  border: 1px solid #e3e3e3;
+}
+iframe{
+  text-align: center;
+  margin-bottom: 2%;
+}
+/* Sticky Footer rules (https://getbootstrap.com/examples/sticky-footer/) */
+html {
+  position: relative;
+  min-height: 100%;
+}
+/* navbar */
+nav{
+  background-color: #7395AE;
+}
+.navbar-nav.mr-auto{
+  visibility: hidden;
+}
+a{
+  color: #FFFFFF;
+  opacity: 0.7;
+  font-size: larger;
+}
+.navbar-brand.active{
+  background-color: white;
+  opacity: 1;
+  color:#7395AE;
+}
+.nav-link.active{
+  opacity: 1;
+}
+
+.navbar-brand:hover{
+  color:  sandybrown;
+}
+.nav-link:hover{
+  color: hsl(28, 87%, 67%);
+}
+/* Set the border color */ 
+          
+.navbar-toggler { 
+  border-color:rgb(255, 255, 255);
+  opacity: 0.7
+} 
+/* Setting the stroke to green using rgb values (0, 128, 0) */ 
+
+.navbar-toggler-icon { 
+  background-image: url( 
+"data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(255, 255, 255, 0.7)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24'/%3E%3C/svg%3E"); 
+}
+/* body */
+body {
+  /* Padding bottom by footer height */
+  padding-bottom: 80px;
+  background-color:white;
+}
+#main{
+  border-radius: 25px;
+  background-color: #7395AE;
+  margin-top: 2%;
+  margin-left: 1%;
+  margin-bottom: 2%;
+  margin-right: 1%;
+}
+svg{
+  background-color: none;
+  border-color:none;
+}
+select{
+  background-color: transparent;
+  border: none;
+  font-size: large;
+  background-color:transparent;
+  color: white;
+  width: 80%;
+  margin-right: 2%;
+}
+
+button{
+  padding-top:0%;
+  padding-bottom:0%;
+}
+#variance{
+  position: absolute;
+  display: inline-block;
+  text-align: center;
+}
+#home{
+  color: white;
+  text-align: center;
+  font-size: smaller;
+}
+#globa{
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 18px;
+  color: white;
+  text-align: center;
+}
+#intro{
+  text-align: left;
+  border: white solid 1px;
+  border-radius: 25px;
+}
+.jumbotron{
+  background-image: url('https://www.israel21c.org/wp-content/uploads/2019/01/shutterstock_globalwarming.jpg');
+  opacity: 0.8;
+  object-fit: cover;
+  background-size: cover;
+  object-position: center;
+  background-repeat: no-repeat;
+  height: 250px;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+  color: white;
+}
+.display-4{
+    background: rgba(33, 33, 33, 0.5);
+}
+.lead{
+  background: rgba(33, 33, 33, 0.5);
+}
+.vertical-center {
+  position: relative;
+  display: flex;
+  align-items: center;
+  text-align: center;
+}
+
+#footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%; /* Set the fixed height of the footer here */
+  height: 10px;
+  padding-top: 20px;
+  padding-bottom: 40px;
+  text-align: center;
+  background-color:#7395AE;
+  color:#FFFFFF;
+}
+#footer p {
+  margin: 0;
+  font-size: 16px;
+}
+#cause{
+  color:#7395AE;
+  text-align: center;
+  align-items: center;
+  background: white;
+  border-radius: 25px;
+}
+
+.but{
+  display:inline-block;
+  padding:0.3em 1.2em;
+  border-radius:1em;
+  border-color: white;
+  font-family:'Roboto',sans-serif;
+  font-weight:300;
+  color:#FFFFFF;
+  background-color:transparent;
+  text-align:center;
+}
+.but:hover{
+    background-color:sandybrown;
+    }
+#icon{
+  border-radius:25px solid white;
+  margin-left: 2%;
+  margin-right: 2%;
+  display: inline-block;
+}

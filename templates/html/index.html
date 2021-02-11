@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Global Warming</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+  <link rel="stylesheet" href="../../static/css/style.css">
+  <link rel="stylesheet" href="../../static/css/d3Style.css">
+  <!-- <link rel="stylesheet" href="{{url_for('static',filename = 'css/style.css')}}">
+  <link rel="stylesheet" href="{{url_for('static',filename = 'css/d3Style.css')}}"> -->
+
+
+</head>
+
+<body>
+  <!--navigation bar-->
+  <nav class="navbar navbar-expand-md floating p-0">
+    <a class="navbar-brand active p-3 ml-2" href="/">Home</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item ">
+            <!-- <a class="nav-link" href="/causes">Causes</a> -->
+            <a class="nav-link" href="causes.html">Causes</a>
+          </li>
+          <li class="nav-item">
+            <!-- <a class="nav-link" href="/effects">Effects</a> -->
+            <a class="nav-link" href="effects.html">Effects</a>
+          </li>
+          <li class="nav-item">
+            <!-- <a class="nav-link" href="/future">Our Future</a> -->
+            <a class="nav-link" href="future.html">Our Future</a>
+          </li>
+        </ul>
+      </div>
+  </nav>
+  <!--jumotron page-->
+  <div class="jumbotron jumbotron-fluid vertical-center">
+    <div class="container align-middle">
+        <h1 class="display-4"><strong>Global Warming</strong></h1>
+        <p class="lead">
+          <strong>“We are the first generation to feel the effect of climate change and the last generation who can do something about it.”
+            Barack Obama, Former US President</strong></p>
+    </div>
+  </div>
+  <div class="container-fluid" id="page">
+    <div class="container-xxl" id="main">
+      <div id="intro" class="row justify-content-center" >
+        <div class='col-xs-6 col-md-5 mt-2 ml-2' style="color:white;">
+          <h3 >What is Global Warming?</h3>
+          <p>
+            <strong>Global warming is the unusually rapid increase in Earth’s average surface temperature over the past century.</strong> 
+          </p>
+        </div>
+        <div class='col-xs-6 col-md-5 mt-2 ml-2' style="color:white;">
+          <h3 >Causes-Effects and Future?</h3>
+          <p>
+            <strong>Global warming is the unusually rapid increase in Earth’s average surface temperature over the past century.</strong> 
+          </p>
+        </div> 
+      </div>
+
+      <div class="row justify-content-center mt-4">
+        <div class='col-xs-12 col-md-5'>
+          <h5 id="globa">Temperature vs pre-industrial avg (13.8°)</h5>
+          <div id="global_temp_chart">
+          </div>
+        </div>
+        <div id = 'avg_temp_country'class='col-xs-12 col-md-5'>
+          <select id='countries'></select><p id='variance'></p>
+          <div id="country_temp_chart">
+          </div>
+        </div>
+      </div>
+      <div class="row justify-content-center">
+          <iframe src="https://climate.nasa.gov/interactives/climate_time_machine" style="height: 650px;;width: 900px;"></iframe>
+      </div>
+    </div>  
+  </div>
+  <!-- Footer-->
+  <div id="footer">
+    <p>Global Warming&copy;2020 by Quentin Mahieu</p>
+  </div>
+  <!-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.11.0/d3.js"></script>
+  <script src="https://d3js.org/d3.v5.min.js"></script>
+  <script src="{{url_for('static', filename='js/index.js')}}"></script> -->
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-tip/0.9.1/d3-tip.min.js"></script>
+  <script src="https://d3js.org/d3.v5.min.js"></script>
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+  <!--home script-->
+  <script type="text/javascript" src="../../static/js/home.js"></script>
+
+</body>
+
+</html>
