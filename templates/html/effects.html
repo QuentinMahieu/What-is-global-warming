@@ -63,22 +63,43 @@
             based on each cause. (<a href="https://www.giss.nasa.gov/" target='_blank'>NASA's Goddard Institute for Space Studies (GISS)</a>.
           </p>
         </div>
-        <div id='dynamic'class='col-xs-12 col-md-12 mt-2 ml-4 justify-content-center'>
+        <div id='dynamic'class='col-xs-5 col-md-5 mt-2 ml-4 justify-content-center'>
         </div>
       </div>
-      <div id='graph'class="row justify-content-center mt-4">
-        <ul>
-          <list id='icon'><img src="https://img.icons8.com/ultraviolet/40/000000/thermometer.png"/></list>
-          <list id='icon'><img src="https://img.icons8.com/officel/40/000000/temperature.png"/></lis>
-          <list id='icon'><img src="https://img.icons8.com/ultraviolet/40/000000/rain.png"/></list>
-          <list id='icon'><img src="https://img.icons8.com/offices/40/000000/cloud.png"/></list>
-          <list id='icon'><img src="https://img.icons8.com/office/40/000000/dry.png"/></list>
-          <list id='icon'><img src="https://img.icons8.com/offices/40/000000/cloud-lighting.png"/></list>
-          <list id='icon'><img src="https://img.icons8.com/officel/40/000000/hail.png"/></list>
-          <list id='icon'><img src="https://img.icons8.com/officexs/40/000000/tornado.png"/></list>
-          <list id='icon'><img src="https://img.icons8.com/ultraviolet/40/000000/heavy-rain.png"/></list>
-          <list id='icon'><img src="https://img.icons8.com/ultraviolet/40/000000/wind--v1.png"/></list>
+      <div class='row justify-content-center mt-4'>
+        <button type="button" value='max_temp' class="icons" onclick="makeResponsive(this.value)">
+          <img  src="https://img.icons8.com/officel/40/000000/temperature.png" title= Max Temperature"/>
+        </button>
+        <button type="button" value='min_temp' class="icons" onclick="makeResponsive(this.value)">
+          <img src="https://img.icons8.com/ultraviolet/40/000000/thermometer.png" title="Min Temperature"/>
+        </button>
+        <button type="button" value='rainfall_anom' class="icons" onclick="makeResponsive(this.value)">
+          <img  src="https://img.icons8.com/ultraviolet/40/000000/rain.png" title="Rainfall anomalies"/>
+        </button>
+        <button type="button" value='day_cloud' class="icons" onclick="makeResponsive(this.value)">
+          <img src="https://img.icons8.com/offices/40/000000/cloud.png" title="Cloudy days"/>
+        </button>
+        <button type="button" value='drough_index' class="icons" onclick="makeResponsive(this.value)">
+          <img  src="https://img.icons8.com/office/40/000000/dry.png" title="Drough index"/>
+        </button>
+        <button type="button" value='lightning_count' class="icons" onclick="makeResponsive(this.value)">
+          <img  src="https://img.icons8.com/offices/40/000000/cloud-lighting.png" title="Lightning count"/>
+        </button>
+        <button type="button" value='hails_count' class="icons" onclick="makeResponsive(this.value)">
+          <img  src="https://img.icons8.com/officel/40/000000/hail.png" title="Hails count"/>
+        </button>
+        <button type="button" value='tornado_count' class="icons" onclick="makeResponsive(this.value)">
+          <img  src="https://img.icons8.com/officexs/40/000000/tornado.png"title="Tornado count"/>
+        </button>
+        <button type="button" value='waterspouts_count' class="icons" onclick="makeResponsive(this.value)">
+          <img  src="https://img.icons8.com/ultraviolet/40/000000/heavy-rain.png" title="Waterspouts count"/>
+        </button>
+        <button type="button" value='wind_speed_avg' class="icons" onclick="makeResponsive(this.value)">
+          <img  src="https://img.icons8.com/ultraviolet/40/000000/wind--v1.png" title="Average wind speed"/>
+        </button>
         </ul>
+      </div>
+      <div class='row justify-content-center mt-4'>
         <div id="scatter" class='col-xs-12 col-md-12 mt-4'>
         </div>
       </div>

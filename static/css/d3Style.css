@@ -50,6 +50,7 @@
   text-transform: capitalize;
   background: rgba(221, 221, 221, 0.2);
   border-radius: 4px;
+  cursor: pointer;
 }
 .d3-tip hr{
   border-top: 1px dotted white;

@@ -165,10 +165,17 @@ button{
 }
 .but:hover{
     background-color:sandybrown;
-    }
-#icon{
-  border-radius:25px solid white;
-  margin-left: 2%;
-  margin-right: 2%;
-  display: inline-block;
 }
+.icons{
+  background: none;
+  background: rgba(33, 33, 33, 0.3);
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  margin: 0 1%;
+  padding: 1%;
+}
+.icons:hover {
+  background-color:sandybrown;
+}
+
