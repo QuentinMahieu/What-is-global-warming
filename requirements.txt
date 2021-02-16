@@ -8,15 +8,14 @@ gunicorn==20.0.4
 h5py==2.10.0
 Jinja2==2.11.2
 json5==0.9.5
-jsonschema @ file:///opt/concourse/worker/volumes/live/143dedb7-a810-4064-6e47-436d4dbcc943/volume/jsonschema_1594363611216/work
-MarkupSafe @ file:///opt/concourse/worker/volumes/live/cb778296-98db-45ad-411e-6f726e102dc3/volume/markupsafe_1594371638608/work
-matplotlib @ file:///opt/concourse/worker/volumes/live/59859a4b-794b-4c9f-51fd-a0ac1d1ab595/volume/matplotlib-base_1592846058943/work
+matplotlib ==3.2.2
 numpy==1.18.5
-pandas @ file:///opt/concourse/worker/volumes/live/5ef6147e-ea92-446e-4065-0c8c7435293f/volume/pandas_1592841676717/work
+pandas == 1.0.5
 psycopg2==2.8.6
 pymongo==3.11.2
-scikit-learn @ file:///opt/concourse/worker/volumes/live/47a3ec7c-70dc-43c0-7317-def24a8afaf5/volume/scikit-learn_1592503037057/work
-scipy @ file:///opt/concourse/worker/volumes/live/7f5e51f8-abf3-4409-4c56-a4fb14cc9869/volume/scipy_1593104185999/work
+scikit-image == 0.16.2
+scikit-learn == 0.23.1
+scipy == 1.5.0
 statsmodels==0.11.1
 Werkzeug==1.0.1
 zope.event==4.4
