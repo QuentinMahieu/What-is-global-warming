@@ -1,24 +1,13 @@
 function init(country) {
-    dropdown();
     global_chart();
     country_chart(country);
     make_map(country);
   }
-var country = 'Afghanistan';
-function dropdown(){
-    d3.csv("../../data/cleaned/avg_temp_per_country.csv").then((data, error) => {
-    if (error) throw error;
-    var countries = data.map(d=>d.Country);
-    var uniqueCountries = [...new Set(countries)];
-    for(i=0;i<uniqueCountries.length;i++){
-        d3.select("#countries").append('option').attr('id',`${uniqueCountries[i]}`).text(uniqueCountries[i]);
-        }
-    });
-}
+
 function global_chart(){
     // Load in the data
-//   d3.json("/financials/hero/data").then((data, error) => {
-    d3.csv("../../data/cleaned/global_anomalies.csv").then((data, error) => {
+    d3.json("/glob_anomalies/data").then((data, error) => {
+    // d3.csv("../../data/cleaned/global_anomalies.csv").then((data, error) => {
         if (error) throw error;
 
         years =data.map(d=> d.Year)
@@ -94,11 +83,21 @@ function global_chart(){
       
   });
 };
+
+var country = 'Afghanistan';
+
 function country_chart(country){
     // Load in the data
-//   d3.json("/financials/hero/data").then((data, error) => {
-    d3.csv("../../data/cleaned/avg_temp_per_country.csv").then((data, error) => {
+    d3.json("/avg_country/data").then((data, error) => {
+    // d3.csv("../../data/cleaned/avg_temp_per_country.csv").then((data, error) => {
         if (error) throw error;
+        //upload the dropdown
+        var countries = data.map(d=>d.Country);
+        var uniqueCountries = [...new Set(countries)];
+        for(i=0;i<uniqueCountries.length;i++){
+            d3.select("#countries").append('option').attr('id',`${uniqueCountries[i]}`).text(uniqueCountries[i]);
+            }
+
         data = data.filter((d)=>d.Country == country)
         years2 = data.map(d=>d.Year)
         temps = data.map(d=>d.AverageTemperature)

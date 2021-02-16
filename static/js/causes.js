@@ -12,8 +12,8 @@ function init() {
 };
 function global_chart(){
   // Load in the data
-//   d3.json("/financials/hero/data").then((data, error) => {
-  d3.csv("../../data/cleaned/global_anomalies.csv").then((data, error) => {
+  d3.json("/glob_anomalies/data").then((data, error) => {
+  // d3.csv("../../data/cleaned/global_anomalies.csv").then((data, error) => {
       
       if (error) throw error;
       d3.select('#buttons').append('button')
@@ -104,8 +104,8 @@ function global_chart(){
 };
 function new_chart(){
   // Load in the data
-//   d3.json("/financials/hero/data").then((data, error) => {
-  d3.csv("../../data/cleaned/global_anomalies.csv").then((data, error) => {
+  d3.json("/glob_anomalies/data").then((data, error) => {
+  // d3.csv("../../data/cleaned/global_anomalies.csv").then((data, error) => {
       if (error) throw error;
 
       d3.select('#buttons').append('button')
@@ -172,8 +172,8 @@ function new_chart(){
 };
 function new_chart1(){
   // Load in the data
-//   d3.json("/financials/hero/data").then((data, error) => {
-  d3.csv("../../data/cleaned/global_anomalies.csv").then((data, error) => {
+  d3.json("/glob_anomalies/data").then((data, error) => {
+  // d3.csv("../../data/cleaned/global_anomalies.csv").then((data, error) => {
       if (error) throw error;
       //reset buttons and text
       d3.select("#titlecause").html('');
@@ -241,8 +241,8 @@ function new_chart1(){
 };
 function new_chart2(){
   // Load in the data
-//   d3.json("/financials/hero/data").then((data, error) => {
-  d3.csv("../../data/cleaned/global_anomalies.csv").then((data, error) => {
+  d3.json("/glob_anomalies/data").then((data, error) => {
+  // d3.csv("../../data/cleaned/global_anomalies.csv").then((data, error) => {
       if (error) throw error;
       d3.select('#titlecause').html("");
       d3.select('#textcause').html("");
@@ -308,8 +308,8 @@ function new_chart2(){
 };
 function new_chart3(){
   // Load in the data
-//   d3.json("/financials/hero/data").then((data, error) => {
-  d3.csv("../../data/cleaned/global_anomalies.csv").then((data, error) => {
+  d3.json("/glob_anomalies/data").then((data, error) => {
+  // d3.csv("../../data/cleaned/global_anomalies.csv").then((data, error) => {
       if (error) throw error;
       d3.select('#titlecause').html("");
       d3.select('#textcause').html("");
@@ -374,8 +374,8 @@ function new_chart3(){
 };
 function new_chart4(){
   // Load in the data
-//   d3.json("/financials/hero/data").then((data, error) => {
-  d3.csv("../../data/cleaned/global_anomalies.csv").then((data, error) => {
+  d3.json("/glob_anomalies/data").then((data, error) => {
+  // d3.csv("../../data/cleaned/global_anomalies.csv").then((data, error) => {
       if (error) throw error;
       d3.select('#titlecause').html("");
       d3.select('#textcause').html("");
@@ -442,8 +442,8 @@ function new_chart4(){
 };
 function new_chart5(){
   // Load in the data
-//   d3.json("/financials/hero/data").then((data, error) => {
-  d3.csv("../../data/cleaned/global_anomalies.csv").then((data, error) => {
+  d3.json("/glob_anomalies/data").then((data, error) => {
+  // d3.csv("../../data/cleaned/global_anomalies.csv").then((data, error) => {
       if (error) throw error;
       d3.select('#titlecause').html("");
       d3.select('#textcause').html("");
@@ -510,8 +510,8 @@ function new_chart5(){
 };
 function new_chart6(){
   // Load in the data
-//   d3.json("/financials/hero/data").then((data, error) => {
-  d3.csv("../../data/cleaned/global_anomalies.csv").then((data, error) => {
+  d3.json("/glob_anomalies/data").then((data, error) => {
+  // d3.csv("../../data/cleaned/global_anomalies.csv").then((data, error) => {
       if (error) throw error;
       d3.select('#titlecause').html("");
       d3.select('#textcause').html("");
@@ -577,8 +577,8 @@ function new_chart6(){
 };
 function new_chart7(){
   // Load in the data
-//   d3.json("/financials/hero/data").then((data, error) => {
-  d3.csv("../../data/cleaned/global_anomalies.csv").then((data, error) => {
+  d3.json("/glob_anomalies/data").then((data, error) => {
+  // d3.csv("../../data/cleaned/global_anomalies.csv").then((data, error) => {
       if (error) throw error;
       d3.select('#titlecause').html("");
       d3.select('#textcause').html("");
@@ -645,8 +645,8 @@ function new_chart7(){
 };
 function new_chart8(){
   // Load in the data
-//   d3.json("/financials/hero/data").then((data, error) => {
-  d3.csv("../../data/cleaned/global_anomalies.csv").then((data, error) => {
+  d3.json("/glob_anomalies/data").then((data, error) => {
+  // d3.csv("../../data/cleaned/global_anomalies.csv").then((data, error) => {
       if (error) throw error;
       d3.select('#titlecause').html("");
       d3.select('#textcause').html("");
@@ -714,8 +714,8 @@ function new_chart8(){
 };
 function new_chart9(){
   // Load in the data
-//   d3.json("/financials/hero/data").then((data, error) => {
-  d3.csv("../../data/cleaned/global_anomalies.csv").then((data, error) => {
+  d3.json("/glob_anomalies/data").then((data, error) => {
+  // d3.csv("../../data/cleaned/global_anomalies.csv").then((data, error) => {
       if (error) throw error;
       d3.select('#titlecause').html("");
       d3.select('#textcause').html("");

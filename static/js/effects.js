@@ -23,12 +23,29 @@ function makeResponsive(chosenYAxis){
     //Initial Params
     var ycolumns = ['max_temp','min_temp','rainfall_anom',
         'day_cloud','drough_index','lightning_count','hails_count',
-        'tornado_count','waterspouts_count','wind_speed_avg'];
+        'tornado_count','waterspouts_count','wind_speed_avg','diff'];
     var chosenXAxis = "avg_temp";
     
     
     function init(chosenYAxis){
-        makeScatter(chosenYAxis);
+        if (chosenYAxis === 'diff'){
+            makeLine(chosenYAxis);
+            legend({
+                color: d3.scaleThreshold([0.8,0.6,0.4,0.2,0,-0.2,-0.4,-0.6,-0.8], d3.schemeRdBu[10]),
+                title: "Temperature anomalie (°C)",
+                tickSize: 0,
+                left: true,
+              });
+        }else{
+            makeScatter(chosenYAxis);
+            legend({
+                color: d3.scaleThreshold([0.8,0.6,0.4,0.2,0,-0.2,-0.4,-0.6,-0.8], d3.schemeRdBu[10]),
+                title: "Temperature anomalie (°C)",
+                tickSize: 0,
+                left: false,
+              });
+        }
+        
     };
     function xScale(data,chosenXAxis){
         var xLinearScale = d3.scaleLinear()
@@ -40,7 +57,7 @@ function makeResponsive(chosenYAxis){
     function yScale(data,chosenYAxis){
         var yLinearScale = d3.scaleLinear()
         .domain([d3.min(data, d => d[chosenYAxis])-1,
-            d3.max(data, d => d[chosenYAxis])+1.1])
+            d3.max(data, d => d[chosenYAxis])+1])
         .range([chartHeight,0]);
         return yLinearScale;
     };
@@ -74,7 +91,7 @@ function makeResponsive(chosenYAxis){
         .attr("cx", d => xLinearScale(d[chosenXAxis]))
         .attr("cy", d => yLinearScale(d[chosenYAxis]))
         .attr("r", "8")
-        .attr("fill", d => getColor(d["avg_temp"]))
+        .attr("fill", d=>getColor(d[chosenXAxis]))
         .attr("opacity",d => (d[chosenYAxis] == 0) ? 0 :0.7)
         .attr("stroke-width", d => (d[chosenYAxis] == 0) ? "0" :"1")
         .attr("stroke", "white");
@@ -126,18 +143,36 @@ function makeResponsive(chosenYAxis){
         }else if(chosenYAxis === ycolumns[8]){ 
           ylabel = "Waterspout count: ";
           var degrees = "";
+        }else if(chosenYAxis === ycolumns[10]){
+            ylabel = "Rise cumul (since 1910): ";
+            yylabel = "Sea level rise: ";
+            var degrees = "mm";
         }else{
             ylabel = "Wind speed average: ";
             var degrees = "";
         }
-        var tip = d3.tip()
+        if(chosenYAxis === ycolumns[10]){
+            var tip = d3.tip()
+            .attr('class', 'd3-tip')
+            .offset([-70, 30])
+            .html(function(d){
+                return (`<strong>${d.Year}</strong><hr>${xlabel}${parseFloat(d[chosenXAxis]+21.8).toFixed(2)}°C<br>
+                ${xxlabel}${parseFloat(d[chosenXAxis]).toFixed(2)}${degrees}<br>
+                ${ylabel}${parseFloat(d[chosenYAxis]).toFixed(2)}${degrees}<br>
+                ${yylabel}${parseFloat(d['rise_year']).toFixed(2)}${degrees}`);
+            });
+        }else{
+            var tip = d3.tip()
             .attr('class', 'd3-tip')
             .offset([-70, 30])
             .html(function(d){
                 return (`<strong>${d.Year}</strong><hr>${xlabel}${parseFloat(d[chosenXAxis]+21.8).toFixed(2)}°C<br>
                 ${xxlabel}${parseFloat(d[chosenXAxis]).toFixed(2)}${degrees}<br>
                 ${ylabel}${parseFloat(d[chosenYAxis]).toFixed(2)}${degrees}`);
-        });
+            });
+        }
+        
+        
         circlesGroup.call(tip);
         circlesGroup.on('mouseover', function(d) {
             tip.show(d, this);
@@ -147,17 +182,101 @@ function makeResponsive(chosenYAxis){
         }); 
         return circlesGroup;
     };
+    //legend function d3
+    function legend({
+        color,
+        title,
+        tickSize = 6,
+        width = 180,
+        height = 44 + tickSize,
+        marginTop = 18,
+        marginRight = 0,
+        marginBottom = 16 + tickSize,
+        marginLeft = 0,
+        ticks = width / 64,
+        tickFormat,
+        tickValues,
+        left
+    } = {}) {
+        if (left === true){
+            position = -height-(marginBottom*4)
+        
+        }else{
+            position = -chartHeight-height-marginBottom-marginTop;
+        }
+        const legend_svg = d3.select("#scatter")
+                .append('svg')
+                .attr("transform", `translate(${chartWidth-marginRight},${position})`)
+                .attr("width", width)
+                .attr("height", height)
+                .attr("viewBox", [0, 0, width, height])
+                .style("overflow", "visible")
+                .style("display", "block");
+        let tickAdjust = g => g.selectAll(".tick line").attr("y1", marginTop + marginBottom - height);
+        let x;
+    
+        // Threshold
+        const thresholds = color.thresholds ? color.thresholds() // scaleQuantize
+        :
+        color.quantiles ? color.quantiles() // scaleQuantile
+        :
+        color.domain(); // scaleThreshold
+
+        const thresholdFormat = tickFormat === undefined ? d => d :
+        typeof tickFormat === "string" ? d3.format(tickFormat) :
+        tickFormat;
+
+        x = d3.scaleLinear()
+        .domain([-1, color.range().length - 1])
+        .rangeRound([marginLeft, width - marginRight]);
+        // .rangeRound([marginLeft, width - marginRight]);
+        
+        legend_svg.append("g")
+        .attr("transform", `translate(-80,0)`)
+        .selectAll("rect")
+        .data(color.range())
+        .join("rect").transition().duration(500)
+        .attr("x", (d, i) => x(i - 1))
+        .attr("y", marginTop)
+        .attr("width", (d, i) => x(i) - x(i - 1))
+        .attr("height", height - marginTop - marginBottom)
+        .attr("fill", d => d);
+
+        tickValues = d3.range(thresholds.length);
+        tickFormat = i => thresholdFormat(thresholds[i], i);
+
+        legend_svg.append("g")
+        .attr("transform", `translate(-80,${height - marginBottom})`)
+        .call(d3.axisBottom(x)
+            .ticks(ticks, typeof tickFormat === "string" ? tickFormat : undefined)
+            .tickFormat(typeof tickFormat === "function" ? tickFormat : undefined)
+            .tickSize(tickSize)
+            .tickValues(tickValues))
+            .style('color','white')
+        .call(tickAdjust)
+        .call(g => g.select(".domain").remove())
+        .call(g => g.append("text").transition().duration(500)
+            .attr("x", marginLeft)
+            .attr("y", marginTop + marginBottom - height - 6)
+            .attr("fill", "white")
+            .attr("text-anchor", "start")
+            .attr("font-weight", "bold")
+            .text(title));
+    
+        return legend_svg.node();
+    };
     function makeScatter(chosenYAxis){
         var chartGroup = svg.append('g')
             .attr('class', "scatterplot")
             .attr('transform', `translate(${margin.left},${margin.top})`);
-      //   d3.json("/scatter/data")
-        d3.csv("../../data/cleaned/australia_extreme_summary.csv").then((data,error)=>{
+        d3.json("/aus_summary/data").then((data,error)=>{
+        // d3.csv("../../data/cleaned/australia_extreme_summary.csv").then((data,error)=>{
             if (error) throw error;
             
             //Format the data
             data.forEach((d)=>{
                 d['avg_temp'] = + d['avg_temp'];
+                d['rise_year'] = +d['rise_year'];
                 for(i=0;i<ycolumns.length;i++){
                   d[ycolumns[i]] = + parseFloat(d[ycolumns[i]]).toFixed(2);
                 }
@@ -172,6 +291,7 @@ function makeResponsive(chosenYAxis){
             // append circles
             var circlesGroups = createCirclesGroup(data,chartGroup);
             makeCircles(circlesGroups,xLinearScale,yLinearScale);
+    
             //labels
             var xlabelsGroup = chartGroup.append('g')
                 .attr('transform',`translate(${chartWidth/2},${chartHeight+20})`);
@@ -192,15 +312,101 @@ function makeResponsive(chosenYAxis){
                 .text(`${chosenYAxis}`)
     
         //initialise tooltip, call the tip and event usage
-            updateToolTip(chosenXAxis,chosenYAxis,circlesGroups);  
+            updateToolTip(chosenXAxis,chosenYAxis,circlesGroups);
+        
         }).catch(function(error) {
           console.log(error);
       });
      }
+    function makeLine(chosenYAxis){
+        var chartGroup = svg.append('g')
+            .attr('class', "scatterplot")
+            .attr('transform', `translate(${margin.left},${margin.top})`);
+        d3.json("/aus_summary/data").then((data,error)=>{
+        // d3.csv("../../data/cleaned/australia_extreme_summary.csv").then((data,error)=>{
+            if (error) throw error;
+        
+            //Format the data
+            data.forEach((d)=>{
+                d['avg_temp'] = + d['avg_temp'];
+                d.Year = parseInt(d.Year);
+                for(i=0;i<ycolumns.length;i++){
+                  d[ycolumns[i]] = + parseFloat(d[ycolumns[i]]).toFixed(2);
+                }
+            });
+            
+            data = data.filter(d=> d.Year > 1992)
+        ///creates the initial chart///////// 
+            // creates scales
+            var xLinearScale = x = d3.scaleLinear()
+                .domain([d3.min(data, d => d.Year),
+                            d3.max(data, d => d.Year)])
+                .range([0,chartWidth]);
+            var yLinearScale = y =  yScale(data,chosenYAxis);
+            //append axes
+            var bottomAxis = d3.axisBottom(xLinearScale).ticks(8).tickFormat(d3.format(".0f"));
+            var xAxis = chartGroup.append('g')
+                .attr("transform",`translate(0,${chartHeight})`)
+                .style("color","white")
+                .call(bottomAxis);
+            initYAxis(yLinearScale,chartGroup);  
+            // append circles
+            var line = d3.line()
+                .defined(d => !isNaN(d[chosenYAxis]))
+                .x(d => x(d.Year))
+                .y(d => y(d[chosenYAxis]));
+
+            chartGroup.append("path")
+                .datum(data).transition().duration(1500)
+                .style("fill",'none')
+                .attr("stroke", 'sandybrown')
+                .attr("stroke-width", 1.5)
+                .attr("stroke-linejoin", "round")
+                .attr("stroke-linecap", "round")
+                .attr("d", line);
+            
+                var circlesGroups = chartGroup.selectAll("g circle")
+                .data(data)
+                .enter()
+                .append("g");
+                var circles = circlesGroups.append("circle")
+                .transition()
+                    .duration(1500)
+                .attr('class', d=>"y" + d.Year)
+                .attr("cx", d => xLinearScale(d.Year))
+                .attr("cy", d => yLinearScale(d[chosenYAxis]))
+                .attr("r", "8")
+                .attr("fill", d=>getColor(d[chosenXAxis]))
+                .attr("opacity",d => (d[chosenYAxis] == 0) ? 0 :0.7)
+                .attr("stroke-width", d => (d[chosenYAxis] == 0) ? "0" :"1")
+                .attr("stroke", "white");
+            //labels
+            var xlabelsGroup = chartGroup.append('g')
+                .attr('transform',`translate(${chartWidth/2},${chartHeight+20})`);
+            var ylabelsGroup = chartGroup.append('g')
+                .attr('transform',`translate(${-40},${chartHeight/2})`)
     
+            var chosenbutton = ylabelsGroup.append('text')
+                .attr("transform", "rotate(-90)")
+                .attr("x",0)
+                .attr('y',0)
+                .attr("value",`${chosenYAxis}`)
+                .style('fill','white')
+                .text(`${chosenYAxis}`)
+    
+        //initialise tooltip, call the tip and event usage
+            updateToolTip(chosenXAxis,chosenYAxis,circlesGroups);
+        
+        }).catch(function(error) {
+          console.log(error);
+      });
+     }
     init(chosenYAxis);
 }
 
 makeResponsive(chosenYAxis);
 
 d3.select(window).on("resize", makeResponsive(chosenYAxis));
+
+
+

@@ -5,10 +5,10 @@
   <meta charset="UTF-8">
   <title>Global Warming</title>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-  <link rel="stylesheet" href="../../static/css/style.css">
-  <link rel="stylesheet" href="../../static/css/d3Style.css">
-  <!-- <link rel="stylesheet" href="{{url_for('static',filename = 'css/style.css')}}">
-  <link rel="stylesheet" href="{{url_for('static',filename = 'css/d3Style.css')}}"> -->
+  <!-- <link rel="stylesheet" href="../../static/css/style.css">
+  <link rel="stylesheet" href="../../static/css/d3Style.css"> -->
+  <link rel="stylesheet" href="{{url_for('static',filename = 'css/style.css')}}">
+  <link rel="stylesheet" href="{{url_for('static',filename = 'css/d3Style.css')}}">
 
 
 </head>
@@ -16,8 +16,8 @@
 <body>
   <!--navigation bar-->
   <nav class="navbar navbar-expand-md floating p-0">
-    <a class="navbar-brand p-3 ml-2" href="index.html">Home</a>
-    <!-- <a class="navbar-brand p-3 ml-2" href="/">Home</a> -->
+    <!-- <a class="navbar-brand p-3 ml-2" href="index.html">Home</a> -->
+    <a class="navbar-brand p-3 ml-2" href="/">Home</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -25,16 +25,16 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav ml-auto">
           <li class="nav-item ">
-            <!-- <a class="nav-link" href="/causes">Causes</a> -->
-            <a class="nav-link" href="causes.html">Causes</a>
+            <a class="nav-link" href="/causes">Causes</a>
+            <!-- <a class="nav-link" href="causes.html">Causes</a> -->
           </li>
           <li class="nav-item">
-            <!-- <a class="nav-link" href="/effects">Effects</a> -->
-            <a class="nav-link active" href="effects.html">Effects</a>
+            <a class="nav-link" href="/effects">Effects</a>
+            <!-- <a class="nav-link" href="effects.html">Effects</a> -->
           </li>
           <li class="nav-item">
-            <!-- <a class="nav-link" href="/future">Our Future</a> -->
-            <a class="nav-link" href="future.html">Our Future</a>
+            <a class="nav-link active" href="/future">Our Future</a>
+            <!-- <a class="nav-link active" href="future.html">Our Future</a> -->
           </li>
         </ul>
       </div>
@@ -52,7 +52,7 @@
     <div class="container-xxl" id="main">
       <div id="intro" class="row justify-content-center" >
         <div class='col-xs-5 col-md-5 mt-2 ml-2 ' style="color:white;">
-          <h3 >What are the effects of Global Warming?</h3>
+          <h3 >What does the future looks like ?</h3>
           <p>Among some scientifics, a lot a skeptical people tend to believe that 
             the world increase in temperature of 1°C in 2020 compare to the pre-industrial 
             average is explained by natural causes. The discovered natural causes are the 
@@ -66,41 +66,21 @@
         <div id='dynamic'class='col-xs-5 col-md-5 mt-2 ml-4 justify-content-center'>
         </div>
       </div>
-      <div class='row justify-content-center mt-4'>
-        <button type="button" value='max_temp' class="icons" onclick="makeResponsive(this.value)">
-          <img  src="https://img.icons8.com/officel/40/000000/temperature.png" title= Max Temperature"/>
-        </button>
-        <button type="button" value='min_temp' class="icons" onclick="makeResponsive(this.value)">
-          <img src="https://img.icons8.com/ultraviolet/40/000000/thermometer.png" title="Min Temperature"/>
-        </button>
-        <button type="button" value='rainfall_anom' class="icons" onclick="makeResponsive(this.value)">
-          <img  src="https://img.icons8.com/ultraviolet/40/000000/rain.png" title="Rainfall anomalies"/>
-        </button>
-        <button type="button" value='day_cloud' class="icons" onclick="makeResponsive(this.value)">
-          <img src="https://img.icons8.com/offices/40/000000/cloud.png" title="Cloudy days"/>
-        </button>
-        <button type="button" value='drough_index' class="icons" onclick="makeResponsive(this.value)">
-          <img  src="https://img.icons8.com/office/40/000000/dry.png" title="Drough index"/>
-        </button>
-        <button type="button" value='lightning_count' class="icons" onclick="makeResponsive(this.value)">
-          <img  src="https://img.icons8.com/offices/40/000000/cloud-lighting.png" title="Lightning count"/>
-        </button>
-        <button type="button" value='hails_count' class="icons" onclick="makeResponsive(this.value)">
-          <img  src="https://img.icons8.com/officel/40/000000/hail.png" title="Hails count"/>
-        </button>
-        <button type="button" value='tornado_count' class="icons" onclick="makeResponsive(this.value)">
-          <img  src="https://img.icons8.com/officexs/40/000000/tornado.png"title="Tornado count"/>
-        </button>
-        <button type="button" value='waterspouts_count' class="icons" onclick="makeResponsive(this.value)">
-          <img  src="https://img.icons8.com/ultraviolet/40/000000/heavy-rain.png" title="Waterspouts count"/>
-        </button>
-        <button type="button" value='wind_speed_avg' class="icons" onclick="makeResponsive(this.value)">
-          <img  src="https://img.icons8.com/ultraviolet/40/000000/wind--v1.png" title="Average wind speed"/>
-        </button>
-        </ul>
-      </div>
-      <div class='row justify-content-center mt-4'>
-        <div id="scatter" class='col-xs-12 col-md-12 mt-4'>
+      <div class='row mt-4' style="height: 450px;">
+        <div id="buttons" class='col-xs-2 col-md-1 mt-4'>
+          <ul>
+            <button type="button" value='CO2(ppm)' class="ic" onclick="plotline(this.value)">
+              <img id="im" src="https://img.icons8.com/color/40/000000/greenhouse-effect.png" title= "CO2 evolution"/>
+            </button>
+            <button type="button" value='global_anom' class="ic" onclick="plotline(this.value)">
+              <img id="im" src="https://img.icons8.com/officel/40/000000/temperature.png" title= "Temperature evolution"/>
+            </button>
+            <button type="button" value='sea_level' class="ic" onclick="plotline(this.value)">
+              <img id="im" src="https://img.icons8.com/fluent/40/000000/water-element.png" title="Sea level"/>
+            </button>
+          </ul>
+        </div>
+        <div id="linechart" class='col-xs-12 col-md-9 mt-4'>
         </div>
       </div>
     </div>  
@@ -110,15 +90,17 @@
     <p>Global Warming&copy;2020 by Quentin Mahieu</p>
   </div>
  
-  <!-- <script src="{{url_for('static', filename='js/index.js')}}"></script> -->
+  
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-tip/0.9.1/d3-tip.min.js"></script>
   <script src="https://d3js.org/d3.v5.min.js"></script>
+  
 
   <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
   <!--effects script-->
-  <script type="text/javascript" src="../../static/js/effects.js"></script>
+  <!-- <script type="text/javascript" src="../../static/js/future.js"></script> -->
+  <script src="{{url_for('static', filename='js/future.js')}}"></script>
 
 </html>
