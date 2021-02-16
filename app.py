@@ -21,19 +21,19 @@ app = Flask(__name__)
 #################################################
 # Flask Routes
 #################################################
-@app.route("/",methods=['GET'])
+@app.route("/")
 def home():
     return render_template("index.html")
 
-@app.route("/causes",methods=['GET'])
+@app.route("/causes")
 def causes():
     return render_template("causes.html")
 
-@app.route("/effects",methods=['GET'])
+@app.route("/effects")
 def effects():
     return render_template("effects.html")
 
-@app.route("/future",methods=['GET'])
+@app.route("/future")
 def future():
     return render_template("future.html")
 
