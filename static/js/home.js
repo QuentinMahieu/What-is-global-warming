@@ -58,6 +58,37 @@ function global_chart(){
               width: 4,
             }
           }],
+          annotations: [
+            {
+              xref: 'paper',
+              x: 1,
+              y: glob_anom[glob_anom.length -1],
+              xanchor: 'right',
+              yanchor: 'bottom',
+              text: "+"+ glob_anom[glob_anom.length -1].toFixed(2) +' °C',
+              font:{
+                family: 'Arial',
+                size: 16,
+                color: 'sandybrown',
+              },
+              bgcolor:"rgba(255,255,255,0.8)",
+              showarrow: false
+            },
+            {
+                xref: 'paper',
+                x: 1,
+                y: 0,
+                xanchor: 'right',
+                yanchor: 'bottom',
+                text: '13.8°C',
+                font:{
+                family: 'Arial',
+                size: 16,
+                color: 'red',
+                },
+                bgcolor:"rgba(255,255,255,0.8)",
+                showarrow: false
+        }],
 
         plot_bgcolor: "transparent",
         paper_bgcolor: "transparent"

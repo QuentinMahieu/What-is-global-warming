@@ -186,9 +186,35 @@ button{
   border: none;
   cursor: pointer;
   padding: 10px 5px;
-  margin: 70% 0;
+  margin: 40% 0;
   vertical-align: middle;
 }
 .ic:hover {
   background-color:sandybrown;
+}
+#links:link, #links:visited {
+  color: #7395AE;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+#links:link:active, #links:visited:active {
+  color: purple;
+}
+.next {
+  text-align: right;
+  background-color: #7395AE;
+  color: white;
+}
+.round {
+  border-radius: 25px;
+  padding:5px 16px;
+  margin-right: 2%;
+}
+.next:hover{
+  background-color:sandybrown;
+  cursor: pointer;
+}
+#titlecause{
+  padding-top: 1%;
 }

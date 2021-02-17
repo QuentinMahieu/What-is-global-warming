@@ -120,9 +120,9 @@ function new_chart(){
       .attr('class','row justify-content-center vertical-center').attr('id','cause')
       div.append('h3').attr('id','titlecause').style('text-align','center').text("Is it the Earth's Orbit?")
       div.append('p').attr('id','textcause').style('text-align','center').text(`
-      The Earth's Orbit change over centuries push the 
+      The Earth's Orbit changes over centuries. It pushes the 
       climate into and out of ice ages. Nonetheless based on the research,
-      the influence on the last century has been negligible
+      its influence in the last century has been negligible.
       `)
 
       var f = d3.select('#button1').node().value;
@@ -190,7 +190,7 @@ function new_chart1(){
 
       d3.select('#titlecause').text("Is it the Sun?")
       d3.select('#textcause').text(`
-      The sun's temperatures varies over decades. We can obeserve that this 
+      The sun's temperatures varies over decades. We obeserve that these 
       variations had almost no effect on the Earth's overall climate.
       `)
 
@@ -259,7 +259,7 @@ function new_chart2(){
       d3.select('#titlecause').text("Is it Volcanoes?")
       d3.select('#textcause').text(`
       The volcanic activities and eruptions emit CO2. But it also emits
-      sulfate chemicals that cool the atmosphere for a year or 2.
+      sulfate chemicals that cool the atmosphere for one to two years.
       `)
       var f = d3.select('#button3').node().value;
 
@@ -389,11 +389,11 @@ function new_chart4(){
       .attr('id','button6')
       .text(`${names[5]}`)
 
-      d3.select('#titlecause').text("Let's find out with Human causes, What about Deforestation?")
+      d3.select('#titlecause').text("Let's find out about Human causes, what about Deforestation?")
       d3.select('#textcause').text(`
       Humans have cut, plowed and paved more than half the Earth's land surface.
-      Thick forrest gave place to ligther patches, which reflect more sunligth and 
-      have a sligth cooling effect.
+      Thick forrest gave place to lighter patches, which reflect more sunligth and 
+      have a slight cooling effect.
       `)
       var f = d3.select('#button5').node().value;
 
@@ -459,9 +459,9 @@ function new_chart5(){
 
       d3.select('#titlecause').text("Could it be Ozone pollution?")
       d3.select('#textcause').text(`
-      Natural ozone high in atmosphere blocks harmful sunligth and cool slightly the global temperature.
-      Ozone pollution is different from greenhouse gases. The first one are gases, solids or liquid aerosols
-      that exceed the environnement to dissipate (ashes, fog, soot etc.).
+      Natural ozone high in the atmosphere blocks harmful sunlight and cools the global temperature slightly .
+      Ozone pollution is different from greenhouse gases. The former are gases, solids or liquid aerosols
+      that exceed the environnement to dissipate (ash, fog, soot etc.).
       `)
       var f = d3.select('#button6').node().value;
 
@@ -527,7 +527,7 @@ function new_chart6(){
 
       d3.select('#titlecause').text("Or Aerosol pollution?")
       d3.select('#textcause').text(`
-      Some polluants cool the athmosphere, like sulfate aerosols from coal-burning. This offset
+      Some polluants cool the athmosphere, like sulfate aerosols from coal-burning. This offsets
       some of the warming effect (but they cause acid rain).
       `)
       var f = d3.select('#button7').node().value;
@@ -592,10 +592,10 @@ function new_chart7(){
       .attr('id','button9')
       .text(`${names[8]}`)
 
-      d3.select('#titlecause').text("No, it is simply the Greenhouse gases?")
+      d3.select('#titlecause').text("No, it is simply the Greenhouse gases..")
       d3.select('#textcause').text(`
       There is 40% more CO2 in the athmosphere than in 1800. According to the research, 
-      we can see that the greenhouse curve shows the high influence on the Global warming. 
+      we can see that the greenhouse curve has the hightest influence on Global warming. 
       `)
 
       var f = d3.select('#button8').node().value;
@@ -660,10 +660,10 @@ function new_chart8(){
       .attr('id','button10')
       .text(`${names[9]}`)
 
-      d3.select('#titlecause').text("Let's now combine the human effects together?")
+      d3.select('#titlecause').text("Let's now combine the human causes together")
       d3.select('#textcause').text(`
-      Greenhouse warms Earth up, Aerosol gases cool it down a little, Ozone and land use 
-      add and substract a little bit. Together the match the curve of the observe anomalies
+      Greenhouse gases warm the Earth up, Aerosols gases cool it down a little, Ozone and land use 
+      add and substract a little bit. Together they match the curve of the observed anomalies
       especially since the 50's.
       `)
 
@@ -729,12 +729,18 @@ function new_chart9(){
       .text('Reset')
 
       d3.select('#titlecause').text("Natural changes and Human changes combined?")
-      d3.select('#textcause').text(`
-      As the possible natural changes didn't impact much the increase in temperature over the last 
-      century,there is not much difference with the previous curve which showed the human impact.
-      According to the research, this is the reason why acting on the greenhouse gas emissions is 
+      d3.select('#textcause').append('p').text(`
+      We could observe that Natural causes didn't impact significantly the increase in temperature over the last 
+      century. As shown on the graph, the curve of all causes together is almost the same as
+      the one caused by Humans.
+      According to the research, this is the reason why acting on the Greenhouse gas emissions is 
       a priority for the actual and the future generations.
+      
       `)
+      d3.select('#textcause').append('p').style('color','sandybrown').html("<br><strong>But why is it so important? Let's have a look at the effects.</strong>")
+      d3.select('#textcause').append('div')
+      .attr('class','row justify-content-end mt-4 mr-2')
+      .html('<a class="next round" href="/effects">Effects &#8250;</a>')
 
       var f = d3.select('#button10').node().value;
 

@@ -25,14 +25,14 @@ function global_chart(){
         };
         var data = [trace];
         var layout = {
+        autosize:true,
         dragmode: 'zoom',
         showlegend: false,
-        title:{text:"Baseline anomalie of 13.8°C",
+        title:{text:"Baseline average temperature of 13.8°C",
                 font:{color:'white',
                 size:18},
             },
         margin:{'t': 60},
-        autosize:true,
         xaxis: {
             tickfont: {
                 family: "Helvetica Neue",
@@ -82,6 +82,7 @@ function plotline(value) {
     if (error) throw error;
     // d3.select('#titlecause').html("");
     // d3.select('#textcause').html("");
+    d3.select('#logos').selectAll('li').remove();
     try{
         Plotly.deleteTraces("linechart", 1);
     }catch(error){
@@ -92,14 +93,23 @@ function plotline(value) {
         var title = 'Greenhouse Gas Projections (2100)';
         var yaxis = 'CO2 (ppm)';
         var t = 'ppm';
+        var ul = d3.select('#logos').select('ul')
+        ul.append('li').style('margin-top','50%').html('<img id="im" src="https://upload.wikimedia.org/wikipedia/en/thumb/4/44/MIT_Seal.svg/1200px-MIT_Seal.svg.png" title= "MIT" style="height: 50px;width: auto;float:left;"/>665 ppm')
+        ul.append('li').style('margin-top','50%').html('<img id="im" src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/79/NOAA_logo.svg/1024px-NOAA_logo.svg.png" title= "NOAA" style="height: 50px;width: auto;float:left;"/>800 ppm')
     }else if((value === 'global_anom')){
         var title = 'Global Warming Projections (2100)';
         var yaxis = 'Average Temperature increase (°C)';
         var t = '°C';
+        var ul = d3.select('#logos').select('ul')
+        ul.append('li').style('margin','50%').html('<img id="im" src="https://upload.wikimedia.org/wikipedia/en/thumb/4/44/MIT_Seal.svg/1200px-MIT_Seal.svg.png" title= "MIT" style="height: 50px;width: auto;float:left;"/>3.3°C')
+        ul.append('li').style('margin','50%').html('<img id="im" src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/79/NOAA_logo.svg/1024px-NOAA_logo.svg.png" title= "NOAA" style="height: 50px;width: auto;float:left;"/>3.1°C')
     }else{
         var title = 'Sea Level Projections (2100)';
         var yaxis = 'Sea Level increase (mm)';
         var t = 'mm';
+        var ul = d3.select('#logos').select('ul')
+        ul.append('li').style('margin','50%').html('<img id="im" src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e5/NASA_logo.svg/200px-NASA_logo.svg.png" title= "NASA" style="height: 50px;width: auto;float:left;"/>400 mm')
+        ul.append('li').style('margin','50%').html('<img id="im" src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/79/NOAA_logo.svg/1024px-NOAA_logo.svg.png" title= "NOAA" style="height: 50px;width: auto;float:left;"/>322-632 mm')
     };
 
     years =data.map(d=> d.Year)

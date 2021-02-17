@@ -293,16 +293,47 @@ function makeResponsive(chosenYAxis){
             makeCircles(circlesGroups,xLinearScale,yLinearScale);
     
             //labels
+            var label;
+            if (chosenYAxis === ycolumns[0]){
+                label = "Temperature max";
+            }else if(chosenYAxis === ycolumns[1]) {
+                label = "Temperature min";
+            }else if(chosenYAxis === ycolumns[2]){ 
+                label = "Rainfall anomalie";
+            }else if(chosenYAxis === ycolumns[3]){ 
+                label = "Cloud days";
+            }else if(chosenYAxis === ycolumns[4]){ 
+                label = "Drough index";
+            }else if(chosenYAxis === ycolumns[5]){ 
+              label = "Lightning count";
+            }else if(chosenYAxis === ycolumns[6]){ 
+              label = "Hails count";
+            }else if(chosenYAxis === ycolumns[7]){ 
+              label = "Tornado count";
+            }else if(chosenYAxis === ycolumns[8]){ 
+              label = "Waterspout count";
+            }else{
+                label = "Wind speed average";
+            }
+
+            var titleGroup = chartGroup.append('g')
+            .attr('transform',`translate(${chartWidth/3},20)`);
             var xlabelsGroup = chartGroup.append('g')
                 .attr('transform',`translate(${chartWidth/2},${chartHeight+20})`);
             var ylabelsGroup = chartGroup.append('g')
                 .attr('transform',`translate(${-40},${chartHeight/2})`)
+            var title = titleGroup.append('text')
+                .attr("x",0)
+                .attr("y",-20)
+                .style('fill','white')
+                .style('font-size','20')
+                .text(`Average temperature vs ${label}`);
             var avg_temp = xlabelsGroup.append('text')
                 .attr("x",0)
                 .attr("y",20)
                 .attr("value",`${chosenXAxis}`)
                 .style('fill','white')
-                .text(`${chosenXAxis}`); 
+                .text(`${label}`); 
             var chosenbutton = ylabelsGroup.append('text')
                 .attr("transform", "rotate(-90)")
                 .attr("x",0)
@@ -381,18 +412,28 @@ function makeResponsive(chosenYAxis){
                 .attr("stroke-width", d => (d[chosenYAxis] == 0) ? "0" :"1")
                 .attr("stroke", "white");
             //labels
+            label = "Sea level rise (since 1910): ";
+
+            var titleGroup = chartGroup.append('g')
+            .attr('transform',`translate(${chartWidth/3},20)`);
             var xlabelsGroup = chartGroup.append('g')
                 .attr('transform',`translate(${chartWidth/2},${chartHeight+20})`);
             var ylabelsGroup = chartGroup.append('g')
                 .attr('transform',`translate(${-40},${chartHeight/2})`)
-    
+
+            var title = titleGroup.append('text')
+                .attr("x",0)
+                .attr("y",-20)
+                .style('fill','white')
+                .style('font-size','20')
+                .text(`Average temperature vs ${label}`);
             var chosenbutton = ylabelsGroup.append('text')
                 .attr("transform", "rotate(-90)")
                 .attr("x",0)
                 .attr('y',0)
                 .attr("value",`${chosenYAxis}`)
                 .style('fill','white')
-                .text(`${chosenYAxis}`)
+                .text(`${label}`)
     
         //initialise tooltip, call the tip and event usage
             updateToolTip(chosenXAxis,chosenYAxis,circlesGroups);
