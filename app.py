@@ -4,6 +4,7 @@ from flask_cors import CORS, cross_origin
 from flask import Flask, render_template, request, redirect, url_for
 
 from pymongo import MongoClient
+import pymongo
 
 mongo = "MonashBootcamp"
 
@@ -40,7 +41,7 @@ def future():
 @app.route("/glob_anomalies/data",methods=['GET'])
 def anom():
     # Collect the data
-    glob_anomalies_col = climate_db.glob_anomalies.find({},{'_id': False})
+    glob_anomalies_col = climate_db.glob_anomalies.find({},{'_id': False}).sort('Year',1)
     glob_anomalies_data = []
     for doc in glob_anomalies_col:
         glob_anomalies_data.append(doc)
@@ -50,7 +51,7 @@ def anom():
 @app.route("/avg_country/data",methods=['GET'])
 def avgCountry():
     # Collect the data
-    avg_country_col = climate_db.avg_temp_per_country.find({},{'_id': False})
+    avg_country_col = climate_db.avg_temp_per_country.find({},{'_id': False}).sort([('Country',pymongo.ASCENDING),('Year',pymongo.ASCENDING)])
     avg_country_data = []
     for doc in avg_country_col:
         avg_country_data.append(doc)
@@ -60,7 +61,7 @@ def avgCountry():
 @app.route("/aus_summary/data",methods=['GET'])
 def ausExtremes():
     # Collect the data
-    australia_extremes_summary_col = climate_db.australia_extremes_summary.find({},{'_id': False})
+    australia_extremes_summary_col = climate_db.australia_extremes_summary.find({},{'_id': False}).sort('Year',1)
     australia_extremes_summary_data = []
     for doc in australia_extremes_summary_col:
         australia_extremes_summary_data.append(doc)
@@ -70,7 +71,7 @@ def ausExtremes():
 @app.route("/glob_projection/data",methods=['GET'])
 def projections():
     # Collect the data
-    glob_projection_col = climate_db.glob_projection.find({},{'_id': False})
+    glob_projection_col = climate_db.glob_projection.find({},{'_id': False}).sort('Year',1)
     glob_projection_data = []
     for doc in glob_projection_col:
         glob_projection_data.append(doc)
@@ -80,7 +81,7 @@ def projections():
 @app.route("/sea_level/data",methods=['GET'])
 def seaLevel():
     # Collect the data
-    sea_level_col = climate_db.sea_level.find({},{'_id': False})
+    sea_level_col = climate_db.sea_level.find({},{'_id': False}).sort('Year',1)
     sea_level_data = []
     for doc in sea_level_col:
         sea_level_data.append(doc)

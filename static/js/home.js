@@ -130,12 +130,21 @@ function country_chart(country){
             }
 
         data = data.filter((d)=>d.Country == country)
+        // calculation of baseline per country
+        function average(nums) {
+            return nums.reduce((a, b) => (a + b)) / nums.length;
+        }
+        var baseline_data = data.filter((d)=>(d.Year >=1880) & (d.Year <=1900))
+        var baseline_map = baseline_data.map(d=>d.AverageTemperature)
+        var baseline = average(baseline_map)
+        
         years2 = data.map(d=>d.Year)
         temps = data.map(d=>d.AverageTemperature)
+        
         var year2 = years2[0]
         var temp = temps[0]
-        var variance = temps[temps.length-1]-temps[0]
-        d3.select('#variance').style('color','white').text("+"+ Number.parseFloat(variance).toFixed(2)+"°");
+        var variance = temps[temps.length-1]-baseline
+        d3.select('#variance').style('color','white').text("+"+ Number.parseFloat(variance).toFixed(2)+"°C");
         // Build line chart
         var trace = {
             x: [year2],

@@ -101,15 +101,15 @@ function plotline(value) {
         var yaxis = 'Average Temperature increase (°C)';
         var t = '°C';
         var ul = d3.select('#logos').select('ul')
-        ul.append('li').style('margin','50%').html('<img id="im" src="https://upload.wikimedia.org/wikipedia/en/thumb/4/44/MIT_Seal.svg/1200px-MIT_Seal.svg.png" title= "MIT" style="height: 50px;width: auto;float:left;"/>3.3°C')
-        ul.append('li').style('margin','50%').html('<img id="im" src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/79/NOAA_logo.svg/1024px-NOAA_logo.svg.png" title= "NOAA" style="height: 50px;width: auto;float:left;"/>3.1°C')
+        ul.append('li').style('margin-top','50%').html('<img id="im" src="https://upload.wikimedia.org/wikipedia/en/thumb/4/44/MIT_Seal.svg/1200px-MIT_Seal.svg.png" title= "MIT" style="height: 50px;width: auto;float:left;"/>3.3°C')
+        ul.append('li').style('margin-top','50%').html('<img id="im" src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/79/NOAA_logo.svg/1024px-NOAA_logo.svg.png" title= "NOAA" style="height: 50px;width: auto;float:left;"/>3.1°C')
     }else{
         var title = 'Sea Level Projections (2100)';
         var yaxis = 'Sea Level increase (mm)';
         var t = 'mm';
         var ul = d3.select('#logos').select('ul')
-        ul.append('li').style('margin','50%').html('<img id="im" src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e5/NASA_logo.svg/200px-NASA_logo.svg.png" title= "NASA" style="height: 50px;width: auto;float:left;"/>400 mm')
-        ul.append('li').style('margin','50%').html('<img id="im" src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/79/NOAA_logo.svg/1024px-NOAA_logo.svg.png" title= "NOAA" style="height: 50px;width: auto;float:left;"/>322-632 mm')
+        ul.append('li').style('margin-top','50%').html('<img id="im" src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e5/NASA_logo.svg/200px-NASA_logo.svg.png" title= "NASA" style="height: 50px;width: auto;float:left;"/>400 mm')
+        ul.append('li').style('margin-top','50%').html('<img id="im" src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/79/NOAA_logo.svg/1024px-NOAA_logo.svg.png" title= "NOAA" style="height: 50px;width: auto;float:left;"/>322-632 mm')
     };
 
     years =data.map(d=> d.Year)
