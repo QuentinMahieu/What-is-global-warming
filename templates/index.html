@@ -9,7 +9,9 @@
   <link rel="stylesheet" href="../../static/css/d3Style.css"> -->
   <link rel="stylesheet" href="{{url_for('static',filename = 'css/style.css')}}">
   <link rel="stylesheet" href="{{url_for('static',filename = 'css/d3Style.css')}}">
-
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+  integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+  crossorigin=""/>
 
 </head>
 
@@ -87,26 +89,24 @@
           </div>
         </div>
         <div id = 'avg_temp_country'class='col-xs-12 col-md-5'>
-          <select id='countries'></select>
-          <img src="https://img.icons8.com/officel/40/000000/temperature.png" title="Max Temperature"/>
-          <p id='variance'></p>
-          <div id="country_temp_chart">
+          <div class="row justify-content-center">
+            <select style="width: 50%;text-align: center;"id='countries'></select>
+            <img src="https://img.icons8.com/officel/40/000000/temperature.png" title="Max Temperature"/>
+            <p id='variance'></p>
           </div>
+          <div id="country_temp_chart"></div>
         </div>
       </div>
-      <div class="row justify-content-center">
-          <iframe src="https://climate.nasa.gov/interactives/climate_time_machine" style="height: 650px;;width: 900px;"></iframe>
+      <div class="row justify-content-center  my-2">
+        <h3 style="color:white;text-align: center;">Temperature increase in 2013 (1880-1900 baseline)</h3>
+        <div id = 'country_map'></div>
       </div>
     </div>  
   </div>
   <!-- Footer-->
   <div id="footer">
-    <p>Global Warming&copy;2020 by Quentin Mahieu</p>
+    <p>Global Warming&copy;2020 by Quentin Mahieu - <a style="color: white;font-size: medium;" href="/project" target="_blank"> Project info </a></p>
   </div>
-  <!-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.11.0/d3.js"></script>
-  <script src="https://d3js.org/d3.v5.min.js"></script>-->
   
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
@@ -114,9 +114,14 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-tip/0.9.1/d3-tip.min.js"></script>
   <script src="https://d3js.org/d3.v5.min.js"></script>
   <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+  <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+  integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+  crossorigin=""></script>
   <!--home script-->
   <!-- <script type="text/javascript" src="../../static/js/home.js"></script> -->
   <script src="{{url_for('static', filename='js/home.js')}}"></script> 
+  <script src="{{url_for('static', filename='js/choropleth.js')}}"></script> 
+  <script src="{{url_for('static', filename='js/config.js')}}"></script>
 
 </body>
 

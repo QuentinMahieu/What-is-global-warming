@@ -1,7 +1,8 @@
 function init(country) {
+    dropdown()
     global_chart();
     country_chart(country);
-    make_map(country);
+    make_map();
   }
 
 function global_chart(){
@@ -110,25 +111,31 @@ function global_chart(){
         cnt = cnt+1;
         if (cnt === 140) clearInterval(interval);
     
-        },100);
+        },50);
       
   });
 };
 
-var country = 'Afghanistan';
-
+var country = 'Australia';
+function dropdown(){
+    d3.json("/avg_country/data").then((data, error) => {
+        // d3.csv("../../data/cleaned/avg_temp_per_country.csv").then((data, error) => {
+            if (error) throw error;
+            //upload the dropdown
+            var countries = data.map(d=>d.Country);
+            var uniqueCountries = [...new Set(countries)];
+            for(i=0;i<uniqueCountries.length;i++){
+                d3.select("#countries").append('option').attr('id',`${uniqueCountries[i]}`).text(uniqueCountries[i]);
+            }
+        });
+    }
 function country_chart(country){
     // Load in the data
     d3.json("/avg_country/data").then((data, error) => {
     // d3.csv("../../data/cleaned/avg_temp_per_country.csv").then((data, error) => {
         if (error) throw error;
         //upload the dropdown
-        var countries = data.map(d=>d.Country);
-        var uniqueCountries = [...new Set(countries)];
-        for(i=0;i<uniqueCountries.length;i++){
-            d3.select("#countries").append('option').attr('id',`${uniqueCountries[i]}`).text(uniqueCountries[i]);
-            }
-
+       
         data = data.filter((d)=>d.Country == country)
         // calculation of baseline per country
         function average(nums) {
@@ -198,12 +205,91 @@ function country_chart(country){
         Plotly.extendTraces("country_temp_chart", update, [0])
         cnt = cnt+1;
         if (cnt === 162) clearInterval(interval);
-        },100);
+        },50);
     });
 };
-function make_map(country){
+function make_map(){
+    var myMap = L.map("country_map", {
+        center: [54.5260, 15.2551],
+        minZoom: 2,
+        zoom: 2
+    });
+    L.tileLayer("https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}", {
+        attribution: "© <a href='https://www.mapbox.com/about/maps/'>Mapbox</a> © <a href='http://www.openstreetmap.org/copyright'>OpenStreetMap</a> <strong><a href='https://www.mapbox.com/map-feedback/' target='_blank'>Improve this map</a></strong>",
+        tileSize: 512,
+        maxZoom: 7,
+        zoomOffset: -1,
+        id: "mapbox/light-v10",
+        accessToken: "pk.eyJ1IjoicXVlbnRpbm1haGlldSIsImEiOiJja2lpajhqb3owM2ZqMnJtZ2wzMG44OGE3In0.7ne6ZvxuI1Z57ryK2tY7uQ"
+        }).addTo(myMap);
+      
+      var geojson;
+    
+    d3.json("https://raw.githubusercontent.com/QuentinMahieu/What-is-global-warming/master/data/cleaned/geojson_countries_final.geojson").then((data, error) => {
+        if (error) throw error;
+    // Create a new choropleth layer
+    
+    geojson = L.choropleth(data, {
+    
+    // Define what  property in the features to use
+    valueProperty: "temperature_increase",
+    
+    // Set color scale
+    scale: ["ffba08","faa307","f48c06","e85d04","d00000","9d0208","6a040f","370617"],
+    
+    // Number of breaks in step range
+    steps: 8,
+    
+    // q for quartile, e for equidistant, k for k-means
+    mode: "q",
+    style: {
+      // Border color
+      color: "#fff",
+      weight: 1,
+      fillOpacity: 0.8
+    },
+    
+    // Binding a pop-up to each layer
+    onEachFeature: function(feature, layer) {
+      layer.bindPopup("Country: " + feature.properties.ADMIN + "<br>Temperature Increase:<br>" +
+        feature.properties.temperature_increase + "°C");
+    }
+    }).addTo(myMap);
+    
+    // Set up the legend
+    var legend = L.control({ position: "topright" });
+    legend.onAdd = function() {
+    var div = L.DomUtil.create("div", "info legend");
+    var limits = geojson.options.limits;
+    var colors = geojson.options.colors;
+    var labels = [];
+    
+    // Add min & max
+    var legendInfo = "<h1>Temperature increase</h1>" +
+      "<div class=\"labels\">" +
+        "<div class=\"min\">" + limits[0] + "°C"+"</div>" +
+        "<div class=\"max\">" + limits[limits.length - 1]+ "°C" + "</div>" +
+      "</div>";
+    
+    div.innerHTML = legendInfo;
+    
+    limits.forEach(function(limit, index) {
+      labels.push("<li style=\"background-color: " + colors[index] + "\"></li>");
+    });
+    
+    div.innerHTML += "<ul>" + labels.join("") + "</ul>";
+    return div;
+    };
+    
+    // Adding legend to the map
+    legend.addTo(myMap);
+    
+    });
+    myMap.on('load', function () {
+        map.resize();
+    });
+ };
 
-}
 var country_selected = d3.select("#countries");
 country_selected.on("change", updateData);
 
@@ -216,3 +302,4 @@ function updateData() {
   make_map(country)
 }
 init(country)
+

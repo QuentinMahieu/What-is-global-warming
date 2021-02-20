@@ -38,6 +38,10 @@ def effects():
 def future():
     return render_template("future.html")
 
+@app.route("/project")
+def projetcInfo():
+    return render_template("project.html")
+
 @app.route("/glob_anomalies/data",methods=['GET'])
 def anom():
     # Collect the data
@@ -48,10 +52,10 @@ def anom():
 
     return (jsonify(glob_anomalies_data))
 
-@app.route("/avg_country/data",methods=['GET'])
+@app.route("/avg_country/data",methods=['GET','POST'])
 def avgCountry():
     # Collect the data
-    avg_country_col = climate_db.avg_temp_per_country.find({},{'_id': False}).sort([('Country',pymongo.ASCENDING),('Year',pymongo.ASCENDING)])
+    avg_country_col = climate_db.avg_temp_per_country.find({'Country':{ "$in": [ 'Australia','United Kingdom','United States','China' ] }},{'_id': False}).sort([('Country',pymongo.ASCENDING),('Year',pymongo.ASCENDING)])
     avg_country_data = []
     for doc in avg_country_col:
         avg_country_data.append(doc)
