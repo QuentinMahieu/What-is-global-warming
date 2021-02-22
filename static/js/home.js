@@ -1,4 +1,10 @@
-function init(country) {
+function makeresponsive(){
+  d3.select('div> #country_map').remove();
+
+  var height = window.innerHeight;
+  var width = window.innerWidth;
+
+  function init(country) {
     dropdown()
     global_chart();
     country_chart(country);
@@ -35,7 +41,7 @@ function global_chart(){
             },
         },
         yaxis: {
-            title: "Global anomalies",
+            title: "Temperature anomalies Global",
             titlefont: {
             family: "Helvetica Neue",
             size: 20,
@@ -89,7 +95,7 @@ function global_chart(){
                 },
                 bgcolor:"rgba(255,255,255,0.8)",
                 showarrow: false
-        }],
+          }],
 
         plot_bgcolor: "transparent",
         paper_bgcolor: "transparent"
@@ -172,7 +178,7 @@ function country_chart(country){
             },
         },
         yaxis: {
-            title: "avg temperatures",
+            title: `Temperature anomalies ${country}`,
             titlefont: {
             family: "Helvetica Neue",
             size: 20,
@@ -209,11 +215,20 @@ function country_chart(country){
     });
 };
 function make_map(){
+  
+    d3.select('#map_holder')
+      .append('div')
+      .attr('id','country_map')
+      .style('height',`${height/1.5}px`)
+      .style('width',`${width*0.93}px`)
+
+    
     var myMap = L.map("country_map", {
         center: [54.5260, 15.2551],
         minZoom: 2,
         zoom: 2
     });
+    
     L.tileLayer("https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}", {
         attribution: "© <a href='https://www.mapbox.com/about/maps/'>Mapbox</a> © <a href='http://www.openstreetmap.org/copyright'>OpenStreetMap</a> <strong><a href='https://www.mapbox.com/map-feedback/' target='_blank'>Improve this map</a></strong>",
         tileSize: 512,
@@ -251,8 +266,10 @@ function make_map(){
     
     // Binding a pop-up to each layer
     onEachFeature: function(feature, layer) {
-      layer.bindPopup("Country: " + feature.properties.ADMIN + "<br>Temperature Increase:<br>" +
-        feature.properties.temperature_increase + "°C");
+      layer.bindPopup("<strong style='font-size:18px;'>" + feature.properties.ADMIN + "</strong>" +
+      "<br>Temperature 2013: " + feature.properties.temperature + "°C" +
+      "<br>Baseline 1880-1900: " + feature.properties.baseline + "°C" +
+      "<br>Temperature Increase: " + feature.properties.temperature_increase + "°C");
     }
     }).addTo(myMap);
     
@@ -285,9 +302,6 @@ function make_map(){
     legend.addTo(myMap);
     
     });
-    myMap.on('load', function () {
-        map.resize();
-    });
  };
 
 var country_selected = d3.select("#countries");
@@ -302,4 +316,7 @@ function updateData() {
   make_map(country)
 }
 init(country)
+}
+makeresponsive();
 
+d3.select(window).on("resize", makeresponsive);

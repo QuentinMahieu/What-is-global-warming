@@ -2,7 +2,9 @@ from flask import Flask, jsonify
 from flask import Response,json
 from flask_cors import CORS, cross_origin
 from flask import Flask, render_template, request, redirect, url_for
-
+import joblib
+import numpy as np
+from sklearn.linear_model import LinearRegression
 from pymongo import MongoClient
 import pymongo
 
@@ -36,7 +38,7 @@ def effects():
 
 @app.route("/future")
 def future():
-    return render_template("future.html")
+    return render_template("future.html", )
 
 @app.route("/project")
 def projetcInfo():
@@ -92,6 +94,25 @@ def seaLevel():
   
     return (jsonify(sea_level_data))
 
+@app.route("/predictmyimpact",methods=['GET','POST'])
+def impact():
+    # Collect the data
+    if request.method == 'POST':
+        select = request.form.get("CO2")
+        
+    if select == '':
+        prediction = "Wrong number given"
+    else:
+        select = float(select)/1000000000
+        y = np.array(select).reshape(-1,1)
+
+        filename = 'models/global_anomalie_pred.sav'
+        loaded_model = joblib.load(filename)
+        prediction = loaded_model.predict(y)
+        prediction = prediction.ravel()
+        prediction = f'{round(prediction.item(0),2)} °C increase in temperature.'
+
+    return render_template("future.html", temperature = prediction)
 
 if __name__ == '__main__':
     app.run(debug=True)

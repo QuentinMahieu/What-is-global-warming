@@ -1,9 +1,85 @@
 columns = ["Orbital changes", "Solar", "Volcanic", "Natural", "Land use", "Ozone", "Anthropogenic tropospheric aerosol", "Greenhouse gases", "Human", "All forcings"]
 names = ['Orbital',"Solar","Volcanic","Natural","Deforestation","Ozone Pollution",'Aerosols Pollution',"Greenhouses","Human","All"]
+d3.select('#buttons').append('button')
+      .attr('type','button')
+      .attr('value',`${columns[0]}`)
+      .attr('onclick','new_chart()')
+      .attr('class','but')
+      .attr('id','button1')
+      .text(`${names[0]}`)
+d3.select('#buttons').append('button')
+      .attr('type','button')
+      .attr('value',`${columns[1]}`)
+      .attr('onclick','new_chart1()')
+      .attr('class','but')
+      .attr('id','button2')
+      .text(`${names[1]}`)
+d3.select('#buttons').append('button')
+      .attr('type','button')
+      .attr('value',`${columns[2]}`)
+      .attr('onclick','new_chart2()')
+      .attr('class','but')
+      .attr('id','button3')
+      .text(`${names[2]}`)
+d3.select('#buttons').append('button')
+      .attr('type','button')
+      .attr('value',`${columns[3]}`)
+      .attr('onclick','new_chart3()')
+      .attr('class','but')
+      .attr('id','button4')
+      .text(`${names[3]}`)
+d3.select('#buttons').append('button')
+      .attr('type','button')
+      .attr('value',`${columns[4]}`)
+      .attr('onclick','new_chart4()')
+      .attr('class','but')
+      .attr('id','button5')
+      .text(`${names[4]}`)
+d3.select('#buttons').append('button')
+      .attr('type','button')
+      .attr('value',`${columns[5]}`)
+      .attr('onclick','new_chart5()')
+      .attr('class','but')
+      .attr('id','button6')
+      .text(`${names[5]}`)
+d3.select('#buttons').append('button')
+      .attr('type','button')
+      .attr('value',`${columns[6]}`)
+      .attr('onclick','new_chart6()')
+      .attr('class','but')
+      .attr('id','button7')
+      .text(`${names[6]}`)
+d3.select('#buttons').append('button')
+      .attr('type','button')
+      .attr('value',`${columns[7]}`)
+      .attr('onclick','new_chart7()')
+      .attr('class','but')
+      .attr('id','button8')
+      .text(`${names[7]}`)
+d3.select('#buttons').append('button')
+      .attr('type','button')
+      .attr('value',`${columns[8]}`)
+      .attr('onclick','new_chart8()')
+      .attr('class','but')
+      .attr('id','button9')
+      .text(`${names[8]}`)
+d3.select('#buttons').append('button')
+      .attr('type','button')
+      .attr('value',`${columns[9]}`)
+      .attr('onclick','new_chart9()')
+      .attr('class','but')
+      .attr('id','button10')
+      .text(`${names[9]}`)
+d3.select('#buttons').append('button')
+      .attr('type','button')
+      .attr('onclick','init()')
+      .attr('class','but')
+      .attr('id','button11')
+      .text('Reset')
+
 function init() {
   try{
     Plotly.deleteTraces("graphic", [0,1]);
-    d3.selectAll('button').remove();
     d3.selectAll('div>#cause').remove();
   }catch(error){
     console.log(error)
@@ -14,15 +90,18 @@ function global_chart(){
   // Load in the data
   d3.json("/glob_anomalies/data").then((data, error) => {
   // d3.csv("../../data/cleaned/global_anomalies.csv").then((data, error) => {
-      
       if (error) throw error;
-      d3.select('#buttons').append('button')
-      .attr('type','button')
-      .attr('value',`${columns[0]}`)
-      .attr('onclick','new_chart()')
-      .attr('class','but')
-      .attr('id','button1')
-      .text(`${names[0]}`)
+      var div = d3.select("#dynamic").append('div')
+      .attr('class','row justify-content-center vertical-center')
+      .attr('id','cause')
+      .classed('hidden',true)
+
+      d3.selectAll("button")
+      .classed('activebut',false)
+      .classed('inactivebut',true)
+
+      div.append('h3').attr('id','titlecause').style('text-align','center')
+      div.append('p').attr('id','textcause').style('text-align','center')
 
       years = data.map(d=> d.Year)
       glob_anom = data.map(d=>d['global_anom'])
@@ -54,7 +133,7 @@ function global_chart(){
           },
       },
       yaxis: {
-          title: "Global anomalies",
+          title: "Temperature anomalies Global",
           titlefont: {
           family: "Helvetica Neue",
           size: 20,
@@ -78,6 +157,22 @@ function global_chart(){
             width: 4,
           }
         }],
+        annotations: [
+          {
+            xref: 'paper',
+            x: 1,
+            y: glob_anom[glob_anom.length -1],
+            xanchor: 'right',
+            yanchor: 'bottom',
+            text: "+"+ glob_anom[glob_anom.length -1].toFixed(2) +' °C',
+            font:{
+              family: 'Arial',
+              size: 16,
+              color: 'sandybrown',
+            },
+            bgcolor:"rgba(255,255,255,0.8)",
+            showarrow: false
+          }],
 
       plot_bgcolor: "transparent",
       paper_bgcolor: "transparent"
@@ -107,19 +202,23 @@ function new_chart(){
   d3.json("/glob_anomalies/data").then((data, error) => {
   // d3.csv("../../data/cleaned/global_anomalies.csv").then((data, error) => {
       if (error) throw error;
+      d3.select("#cause")
+      .classed('hidden',false)
+      .classed('visible',true)
 
-      d3.select('#buttons').append('button')
-      .attr('type','button')
-      .attr('value',`${columns[1]}`)
-      .attr('onclick','new_chart1()')
-      .attr('class','but')
-      .attr('id','button2')
-      .text(`${names[1]}`)
+      d3.selectAll(".but")
+      .classed('activebut',false)
+      .classed('inactivebut',true)
 
-      var div = d3.select("#dynamic").append('div')
-      .attr('class','row justify-content-center vertical-center').attr('id','cause')
-      div.append('h3').attr('id','titlecause').style('text-align','center').text("Is it the Earth's Orbit?")
-      div.append('p').attr('id','textcause').style('text-align','center').text(`
+      d3.select(".but")
+      .classed('activebut',true)
+      .classed('inactivebut',false)
+      
+      d3.select("#titlecause").html('');
+      d3.select("#textcause").html('');
+
+      d3.select('#titlecause').text("Is it the Earth's Orbit?")
+      d3.select("#textcause").text(`
       The Earth's Orbit changes over centuries. It pushes the 
       climate into and out of ice ages. Nonetheless based on the research,
       its influence in the last century has been negligible.
@@ -146,7 +245,38 @@ function new_chart(){
       var update = {
         title : {text:`Global Warming anomalies explained by ${columns[0]}`,
                  font:{color:'white',
-                       size:18}}
+                       size:18}},
+        annotations: [
+                {
+                  xref: 'paper',
+                  x: 1,
+                  y: 1.22,
+                  xanchor: 'right',
+                  yanchor: 'bottom',
+                  text: "+"+ 1.22 +' °C',
+                  font:{
+                    family: 'Arial',
+                    size: 16,
+                    color: 'sandybrown',
+                  },
+                  bgcolor:"rgba(255,255,255,0.8)",
+                  showarrow: false
+                },
+                {
+                xref: 'paper',
+                x: 1,
+                y: feature[feature.length-1],
+                xanchor: 'right',
+                yanchor: 'bottom',
+                text: feature[feature.length-1].toFixed(2) +' °C',
+                font:{
+                family: 'Arial',
+                size: 16,
+                color: 'red',
+                },
+                bgcolor:"rgba(255,255,255,0.8)",
+                showarrow: false
+        }],
       }
       
       Plotly.relayout("graphic", update);
@@ -176,17 +306,25 @@ function new_chart1(){
   // d3.csv("../../data/cleaned/global_anomalies.csv").then((data, error) => {
       if (error) throw error;
       //reset buttons and text
-      d3.select("#titlecause").html('');
-      d3.select("textcause").html('');
-      Plotly.deleteTraces("graphic", 1);
+      d3.select("#cause")
+      .classed('hidden',false)
+      .classed('visible',true)
+
+      d3.selectAll("button")
+      .classed('activebut',false)
+      .classed('inactivebut',true)
+
+      d3.select(`#button2`)
+      .classed('activebut',true)
+      .classed('inactivebut',false)
       
-      d3.select('#buttons').append('button')
-      .attr('type','button')
-      .attr('value',`${columns[2]}`)
-      .attr('onclick','new_chart2()')
-      .attr('class','but')
-      .attr('id','button3')
-      .text(`${names[2]}`)
+      d3.select("#titlecause").html('');
+      d3.select("#textcause").html('');
+      try{
+        Plotly.deleteTraces("graphic", 1);
+      }catch(error){
+        console.log(error)
+      }
 
       d3.select('#titlecause').text("Is it the Sun?")
       d3.select('#textcause').text(`
@@ -215,7 +353,38 @@ function new_chart1(){
       var update = {
         title : {text:`Global Warming anomalies explained by ${columns[1]} changes`,
                  font:{color:'white',
-                       size:18}}
+                       size:18}},
+        annotations: [
+                {
+                  xref: 'paper',
+                  x: 1,
+                  y: 1.22,
+                  xanchor: 'right',
+                  yanchor: 'bottom',
+                  text: "+"+ 1.22 +' °C',
+                  font:{
+                    family: 'Arial',
+                    size: 16,
+                    color: 'sandybrown',
+                  },
+                  bgcolor:"rgba(255,255,255,0.8)",
+                  showarrow: false
+                },
+                {
+                xref: 'paper',
+                x: 1,
+                y: feature[feature.length-1],
+                xanchor: 'right',
+                yanchor: 'bottom',
+                text: feature[feature.length-1].toFixed(2) +' °C',
+                font:{
+                family: 'Arial',
+                size: 16,
+                color: 'red',
+                },
+                bgcolor:"rgba(255,255,255,0.8)",
+                showarrow: false
+        }],
       }
       
       Plotly.relayout("graphic", update); 
@@ -244,18 +413,26 @@ function new_chart2(){
   d3.json("/glob_anomalies/data").then((data, error) => {
   // d3.csv("../../data/cleaned/global_anomalies.csv").then((data, error) => {
       if (error) throw error;
+      d3.select("#cause")
+      .classed('hidden',false)
+      .classed('visible',true)
+
+      d3.selectAll("button")
+      .classed('activebut',false)
+      .classed('inactivebut',true)
+
+      d3.select(`#button3`)
+      .classed('activebut',true)
+      .classed('inactivebut',false)
+      
       d3.select('#titlecause').html("");
       d3.select('#textcause').html("");
-      Plotly.deleteTraces("graphic", 1);
+      try{
+        Plotly.deleteTraces("graphic", 1);
+      }catch(error){
+        console.log(error)
+      }
       
-      d3.select('#buttons').append('button')
-      .attr('type','button')
-      .attr('value',`${columns[3]}`)
-      .attr('onclick','new_chart3()')
-      .attr('class','but')
-      .attr('id','button4')
-      .text(`${names[3]}`)
-
       d3.select('#titlecause').text("Is it Volcanoes?")
       d3.select('#textcause').text(`
       The volcanic activities and eruptions emit CO2. But it also emits
@@ -282,7 +459,38 @@ function new_chart2(){
       var update = {
         title : {text:`Global Warming anomalies explained by ${columns[2]} erruptions`,
                  font:{color:'white',
-                       size:18}}
+                       size:18}},
+        annotations: [
+                {
+                  xref: 'paper',
+                  x: 1,
+                  y: 1.22,
+                  xanchor: 'right',
+                  yanchor: 'bottom',
+                  text: "+"+ 1.22 +' °C',
+                  font:{
+                    family: 'Arial',
+                    size: 16,
+                    color: 'sandybrown',
+                  },
+                  bgcolor:"rgba(255,255,255,0.8)",
+                  showarrow: false
+                },
+                {
+                xref: 'paper',
+                x: 1,
+                y: feature[feature.length-1],
+                xanchor: 'right',
+                yanchor: 'bottom',
+                text: feature[feature.length-1].toFixed(2) +' °C',
+                font:{
+                family: 'Arial',
+                size: 16,
+                color: 'red',
+                },
+                bgcolor:"rgba(255,255,255,0.8)",
+                showarrow: false
+        }],
       }
       
       Plotly.relayout("graphic", update);
@@ -311,18 +519,27 @@ function new_chart3(){
   d3.json("/glob_anomalies/data").then((data, error) => {
   // d3.csv("../../data/cleaned/global_anomalies.csv").then((data, error) => {
       if (error) throw error;
+      d3.select("#cause")
+      .classed('hidden',false)
+      .classed('visible',true)
+
+      d3.selectAll("button")
+      .classed('activebut',false)
+      .classed('inactivebut',true)
+
+      d3.select(`#button4`)
+      .classed('activebut',true)
+      .classed('inactivebut',false)
+      
       d3.select('#titlecause').html("");
       d3.select('#textcause').html("");
-      Plotly.deleteTraces("graphic", 1);
+      try{
+        Plotly.deleteTraces("graphic", 1);
+      }catch(error){
+        console.log(error)
+      }
       
-      d3.select('#buttons').append('button')
-      .attr('type','button')
-      .attr('value',`${columns[4]}`)
-      .attr('onclick','new_chart4()')
-      .attr('class','but')
-      .attr('id','button5')
-      .text(`${names[4]}`)
-
+     
       d3.select('#titlecause').text("Is it the 3 natural causes combined?")
       d3.select('#textcause').text(`
       We clearly observe that the curve doesn't follow the observed temperature curve.
@@ -348,7 +565,38 @@ function new_chart3(){
       var update = {
         title : {text:`Global Warming anomalies explained by all ${columns[3]} changes`,
                  font:{color:'white',
-                       size:18}}
+                       size:18}},
+        annotations: [
+                {
+                  xref: 'paper',
+                  x: 1,
+                  y: 1.22,
+                  xanchor: 'right',
+                  yanchor: 'bottom',
+                  text: "+"+ 1.22 +' °C',
+                  font:{
+                    family: 'Arial',
+                    size: 16,
+                    color: 'sandybrown',
+                  },
+                  bgcolor:"rgba(255,255,255,0.8)",
+                  showarrow: false
+                },
+                {
+                xref: 'paper',
+                x: 1,
+                y: feature[feature.length-1],
+                xanchor: 'right',
+                yanchor: 'bottom',
+                text: feature[feature.length-1].toFixed(2) +' °C',
+                font:{
+                family: 'Arial',
+                size: 16,
+                color: 'red',
+                },
+                bgcolor:"rgba(255,255,255,0.8)",
+                showarrow: false
+        }],
       }
       
       Plotly.relayout("graphic", update);
@@ -377,17 +625,26 @@ function new_chart4(){
   d3.json("/glob_anomalies/data").then((data, error) => {
   // d3.csv("../../data/cleaned/global_anomalies.csv").then((data, error) => {
       if (error) throw error;
+      d3.select("#cause")
+      .classed('hidden',false)
+      .classed('visible',true)
+
+      d3.selectAll("button")
+      .classed('activebut',false)
+      .classed('inactivebut',true)
+
+      d3.select(`#button5`)
+      .classed('activebut',true)
+      .classed('inactivebut',false)
+      
       d3.select('#titlecause').html("");
       d3.select('#textcause').html("");
-      Plotly.deleteTraces("graphic", 1);
-      
-      d3.select('#buttons').append('button')
-      .attr('type','button')
-      .attr('value',`${columns[5]}`)
-      .attr('onclick','new_chart5()')
-      .attr('class','but')
-      .attr('id','button6')
-      .text(`${names[5]}`)
+      try{
+        Plotly.deleteTraces("graphic", 1);
+      }catch(error){
+        console.log(error)
+      }
+    
 
       d3.select('#titlecause').text("Let's find out about Human causes, what about Deforestation?")
       d3.select('#textcause').text(`
@@ -416,8 +673,39 @@ function new_chart4(){
       var update = {
         title : {text:`Global Warming anomalies explained by ${names[4]}`,
                  font:{color:'white',
-                       size:18}}
-      }
+                       size:18}},
+        annotations: [
+                {
+                  xref: 'paper',
+                  x: 1,
+                  y: 1.22,
+                  xanchor: 'right',
+                  yanchor: 'bottom',
+                  text: "+"+ 1.22 +' °C',
+                  font:{
+                    family: 'Arial',
+                    size: 16,
+                    color: 'sandybrown',
+                  },
+                  bgcolor:"rgba(255,255,255,0.8)",
+                  showarrow: false
+                },
+                {
+                xref: 'paper',
+                x: 1,
+                y: feature[feature.length-1],
+                xanchor: 'right',
+                yanchor: 'bottom',
+                text: feature[feature.length-1].toFixed(2) +' °C',
+                font:{
+                family: 'Arial',
+                size: 16,
+                color: 'red',
+                },
+                bgcolor:"rgba(255,255,255,0.8)",
+                showarrow: false
+        }],
+}
       
       Plotly.relayout("graphic", update);
       Plotly.addTraces("graphic", data);
@@ -445,17 +733,25 @@ function new_chart5(){
   d3.json("/glob_anomalies/data").then((data, error) => {
   // d3.csv("../../data/cleaned/global_anomalies.csv").then((data, error) => {
       if (error) throw error;
+      d3.select("#cause")
+      .classed('hidden',false)
+      .classed('visible',true)
+
+      d3.selectAll("button")
+      .classed('activebut',false)
+      .classed('inactivebut',true)
+
+      d3.select(`#button6`)
+      .classed('activebut',true)
+      .classed('inactivebut',false)
+      
       d3.select('#titlecause').html("");
       d3.select('#textcause').html("");
-      Plotly.deleteTraces("graphic", 1);
-      
-      d3.select('#buttons').append('button')
-      .attr('type','button')
-      .attr('value',`${columns[6]}`)
-      .attr('onclick','new_chart6()')
-      .attr('class','but')
-      .attr('id','button7')
-      .text(`${names[6]}`)
+      try{
+        Plotly.deleteTraces("graphic", 1);
+      }catch(error){
+        console.log(error)
+      }
 
       d3.select('#titlecause').text("Could it be Ozone pollution?")
       d3.select('#textcause').text(`
@@ -484,7 +780,38 @@ function new_chart5(){
       var update = {
         title : {text:`Global Warming anomalies explained by ${names[5]}`,
                  font:{color:'white',
-                       size:18}}
+                       size:18}},
+        annotations: [
+                {
+                  xref: 'paper',
+                  x: 1,
+                  y: 1.22,
+                  xanchor: 'right',
+                  yanchor: 'bottom',
+                  text: "+"+ 1.22 +' °C',
+                  font:{
+                    family: 'Arial',
+                    size: 16,
+                    color: 'sandybrown',
+                  },
+                  bgcolor:"rgba(255,255,255,0.8)",
+                  showarrow: false
+                },
+                {
+                xref: 'paper',
+                x: 1,
+                y: feature[feature.length-1],
+                xanchor: 'right',
+                yanchor: 'bottom',
+                text: feature[feature.length-1].toFixed(2) +' °C',
+                font:{
+                family: 'Arial',
+                size: 16,
+                color: 'red',
+                },
+                bgcolor:"rgba(255,255,255,0.8)",
+                showarrow: false
+        }],
       }
       
       Plotly.relayout("graphic", update);
@@ -513,17 +840,25 @@ function new_chart6(){
   d3.json("/glob_anomalies/data").then((data, error) => {
   // d3.csv("../../data/cleaned/global_anomalies.csv").then((data, error) => {
       if (error) throw error;
+      d3.select("#cause")
+      .classed('hidden',false)
+      .classed('visible',true)
+
+      d3.selectAll("button")
+      .classed('activebut',false)
+      .classed('inactivebut',true)
+
+      d3.select(`#button7`)
+      .classed('activebut',true)
+      .classed('inactivebut',false)
+      
       d3.select('#titlecause').html("");
       d3.select('#textcause').html("");
-      Plotly.deleteTraces("graphic", 1);
-      
-      d3.select('#buttons').append('button')
-      .attr('type','button')
-      .attr('value',`${columns[7]}`)
-      .attr('onclick','new_chart7()')
-      .attr('class','but')
-      .attr('id','button8')
-      .text(`${names[7]}`)
+      try{
+        Plotly.deleteTraces("graphic", 1);
+      }catch(error){
+        console.log(error)
+      }
 
       d3.select('#titlecause').text("Or Aerosol pollution?")
       d3.select('#textcause').text(`
@@ -551,7 +886,38 @@ function new_chart6(){
       var update = {
         title : {text:`Global Warming anomalies explained by ${names[6]}`,
                  font:{color:'white',
-                       size:18}}
+                       size:18}},
+        annotations: [
+                {
+                  xref: 'paper',
+                  x: 1,
+                  y: 1.22,
+                  xanchor: 'right',
+                  yanchor: 'bottom',
+                  text: "+"+ 1.22 +' °C',
+                  font:{
+                    family: 'Arial',
+                    size: 16,
+                    color: 'sandybrown',
+                  },
+                  bgcolor:"rgba(255,255,255,0.8)",
+                  showarrow: false
+                },
+                {
+                xref: 'paper',
+                x: 1,
+                y: feature[feature.length-1],
+                xanchor: 'right',
+                yanchor: 'bottom',
+                text: feature[feature.length-1].toFixed(2) +' °C',
+                font:{
+                family: 'Arial',
+                size: 16,
+                color: 'red',
+                },
+                bgcolor:"rgba(255,255,255,0.8)",
+                showarrow: false
+        }],
       }
       
       Plotly.relayout("graphic", update);
@@ -580,17 +946,26 @@ function new_chart7(){
   d3.json("/glob_anomalies/data").then((data, error) => {
   // d3.csv("../../data/cleaned/global_anomalies.csv").then((data, error) => {
       if (error) throw error;
+      d3.select("#cause")
+      .classed('hidden',false)
+      .classed('visible',true)
+
+      d3.selectAll("button")
+      .classed('activebut',false)
+      .classed('inactivebut',true)
+
+      d3.select(`#button8`)
+      .classed('activebut',true)
+      .classed('inactivebut',false)
+      
       d3.select('#titlecause').html("");
       d3.select('#textcause').html("");
-      Plotly.deleteTraces("graphic", 1);
-      
-      d3.select('#buttons').append('button')
-      .attr('type','button')
-      .attr('value',`${columns[8]}`)
-      .attr('onclick','new_chart8()')
-      .attr('class','but')
-      .attr('id','button9')
-      .text(`${names[8]}`)
+      try{
+        Plotly.deleteTraces("graphic", 1);
+      }catch(error){
+        console.log(error)
+      }
+
 
       d3.select('#titlecause').text("No, it is simply the Greenhouse gases..")
       d3.select('#textcause').text(`
@@ -619,7 +994,38 @@ function new_chart7(){
       var update = {
         title : {text:`Global Warming anomalies explained by ${columns[7]}`,
                  font:{color:'white',
-                       size:18}}
+                       size:18}},
+        annotations: [
+                {
+                  xref: 'paper',
+                  x: 1,
+                  y: 1.22,
+                  xanchor: 'right',
+                  yanchor: 'bottom',
+                  text: "+"+ 1.22 +' °C',
+                  font:{
+                    family: 'Arial',
+                    size: 16,
+                    color: 'sandybrown',
+                  },
+                  bgcolor:"rgba(255,255,255,0.8)",
+                  showarrow: false
+                },
+                {
+                xref: 'paper',
+                x: 1,
+                y: feature[feature.length-1],
+                xanchor: 'right',
+                yanchor: 'bottom',
+                text: feature[feature.length-1].toFixed(2) +' °C',
+                font:{
+                family: 'Arial',
+                size: 16,
+                color: 'red',
+                },
+                bgcolor:"rgba(255,255,255,0.8)",
+                showarrow: false
+        }],
       }
       
       Plotly.relayout("graphic", update);
@@ -648,17 +1054,25 @@ function new_chart8(){
   d3.json("/glob_anomalies/data").then((data, error) => {
   // d3.csv("../../data/cleaned/global_anomalies.csv").then((data, error) => {
       if (error) throw error;
+      d3.select("#cause")
+      .classed('hidden',false)
+      .classed('visible',true)
+
+      d3.selectAll("button")
+      .classed('activebut',false)
+      .classed('inactivebut',true)
+
+      d3.select(`#button9`)
+      .classed('activebut',true)
+      .classed('inactivebut',false)
+      
       d3.select('#titlecause').html("");
       d3.select('#textcause').html("");
-      Plotly.deleteTraces("graphic", 1);
-      
-      d3.select('#buttons').append('button')
-      .attr('type','button')
-      .attr('value',`${columns[9]}`)
-      .attr('onclick','new_chart9()')
-      .attr('class','but')
-      .attr('id','button10')
-      .text(`${names[9]}`)
+      try{
+        Plotly.deleteTraces("graphic", 1);
+      }catch(error){
+        console.log(error)
+      }
 
       d3.select('#titlecause').text("Let's now combine the human causes together")
       d3.select('#textcause').text(`
@@ -688,7 +1102,38 @@ function new_chart8(){
       var update = {
         title : {text:`Global Warming anomalies explained by ${columns[8]} changes`,
                  font:{color:'white',
-                       size:18}}
+                       size:18}},
+        annotations: [
+                {
+                  xref: 'paper',
+                  x: 1,
+                  y: 1.22,
+                  xanchor: 'right',
+                  yanchor: 'bottom',
+                  text: "+"+ 1.22 +' °C',
+                  font:{
+                    family: 'Arial',
+                    size: 16,
+                    color: 'sandybrown',
+                  },
+                  bgcolor:"rgba(255,255,255,0.8)",
+                  showarrow: false
+                },
+                {
+                xref: 'paper',
+                x: 1,
+                y: feature[feature.length-1],
+                xanchor: 'right',
+                yanchor: 'bottom',
+                text: feature[feature.length-1].toFixed(2) +' °C',
+                font:{
+                family: 'Arial',
+                size: 16,
+                color: 'red',
+                },
+                bgcolor:"rgba(255,255,255,0.8)",
+                showarrow: false
+        }],
       }
       
       Plotly.relayout("graphic", update);
@@ -717,16 +1162,25 @@ function new_chart9(){
   d3.json("/glob_anomalies/data").then((data, error) => {
   // d3.csv("../../data/cleaned/global_anomalies.csv").then((data, error) => {
       if (error) throw error;
+      d3.select("#cause")
+      .classed('hidden',false)
+      .classed('visible',true)
+
+      d3.selectAll("button")
+      .classed('activebut',false)
+      .classed('inactivebut',true)
+
+      d3.select(`#button10`)
+      .classed('activebut',true)
+      .classed('inactivebut',false)
+      
       d3.select('#titlecause').html("");
       d3.select('#textcause').html("");
-      Plotly.deleteTraces("graphic", 1);
-      
-      d3.select('#buttons').append('button')
-      .attr('type','button')
-      .attr('onclick','init()')
-      .attr('class','but')
-      .attr('id','button11')
-      .text('Reset')
+      try{
+        Plotly.deleteTraces("graphic", 1);
+      }catch(error){
+        console.log(error)
+      }
 
       d3.select('#titlecause').text("Natural changes and Human changes combined?")
       d3.select('#textcause').append('p').text(`
@@ -735,9 +1189,8 @@ function new_chart9(){
       the one caused by Humans.
       According to the research, this is the reason why acting on the Greenhouse gas emissions is 
       a priority for the actual and the future generations.
-      
       `)
-      d3.select('#textcause').append('p').style('color','sandybrown').html("<br><strong>But why is it so important? Let's have a look at the effects.</strong>")
+
       d3.select('#textcause').append('div')
       .attr('class','row justify-content-end mt-4 mr-2')
       .html('<a class="next round" href="/effects">Effects &#8250;</a>')
@@ -763,7 +1216,38 @@ function new_chart9(){
       var update = {
         title : {text:`Global Warming anomalies explained Human and Natural changes`,
                  font:{color:'white',
-                       size:18}}
+                       size:18}},
+        annotations: [
+                {
+                  xref: 'paper',
+                  x: 1,
+                  y: 1.22,
+                  xanchor: 'right',
+                  yanchor: 'bottom',
+                  text: "+"+ 1.22 +' °C',
+                  font:{
+                    family: 'Arial',
+                    size: 16,
+                    color: 'sandybrown',
+                  },
+                  bgcolor:"rgba(255,255,255,0.8)",
+                  showarrow: false
+                },
+                {
+                xref: 'paper',
+                x: 1,
+                y: feature[feature.length-1],
+                xanchor: 'right',
+                yanchor: 'bottom',
+                text: feature[feature.length-1].toFixed(2) +' °C',
+                font:{
+                family: 'Arial',
+                size: 16,
+                color: 'red',
+                },
+                bgcolor:"rgba(255,255,255,0.8)",
+                showarrow: false
+        }],
       }
       
       Plotly.relayout("graphic", update);

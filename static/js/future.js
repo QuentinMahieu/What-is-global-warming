@@ -32,7 +32,8 @@ function global_chart(){
                 font:{color:'white',
                 size:18},
             },
-        margin:{'t': 60},
+        margin:{'t': 60,
+                'b': 60},
         xaxis: {
             tickfont: {
                 family: "Helvetica Neue",
@@ -54,7 +55,9 @@ function global_chart(){
         plot_bgcolor: "transparent",
         paper_bgcolor: "transparent"
         };
-        Plotly.newPlot("linechart", data, layout);
+        var config = {responsive: true}
+
+        Plotly.newPlot("linechart", data, layout,config);
     
         var cnt = 1;
     

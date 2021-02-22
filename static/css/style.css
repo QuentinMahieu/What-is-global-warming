@@ -53,6 +53,7 @@ a{
 /* body */
 body {
   /* Padding bottom by footer height */
+  height: 100%;
   padding-bottom: 80px;
   background-color:white;
 }
@@ -219,14 +220,13 @@ button{
   padding-top: 1%;
 }
 #country_map {
-  width: 1064px;
-  height: 600px;
   padding: 0;
-  margin: 2%;
+  margin: 1%;
   border-radius: 5px;
 }
 .leaflet-popup-content {
   text-align: center;
+  padding: 0;
 }
 
 /* CSS from the Leaflet-Choropleth documentation */
@@ -268,4 +268,16 @@ h1 {
   font-size: medium;
   font-weight: bold;
   text-align: center;
+}
+#submitbutton{
+  border-radius: 25px ;
+  background-color: white;
+  color: #7395AE;
+  margin-left: 2%;
+  padding: 0.3% 1.5%;
+}
+
+#submitbutton:hover{
+  background-color: sandybrown;
+  cursor: pointer;
 }

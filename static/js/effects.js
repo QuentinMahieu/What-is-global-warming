@@ -25,8 +25,7 @@ function makeResponsive(chosenYAxis){
         'day_cloud','drough_index','lightning_count','hails_count',
         'tornado_count','waterspouts_count','wind_speed_avg','diff'];
     var chosenXAxis = "avg_temp";
-    
-    
+
     function init(chosenYAxis){
         if (chosenYAxis === 'diff'){
             makeLine(chosenYAxis);
@@ -329,18 +328,18 @@ function makeResponsive(chosenYAxis){
                 .style('font-size','20')
                 .text(`Average temperature vs ${label}`);
             var avg_temp = xlabelsGroup.append('text')
-                .attr("x",0)
-                .attr("y",20)
+                .attr("x",-40)
+                .attr("y",25)
                 .attr("value",`${chosenXAxis}`)
                 .style('fill','white')
-                .text(`${label}`); 
+                .text(`Temperature anomalies Australia`); 
             var chosenbutton = ylabelsGroup.append('text')
                 .attr("transform", "rotate(-90)")
                 .attr("x",0)
                 .attr('y',0)
                 .attr("value",`${chosenYAxis}`)
                 .style('fill','white')
-                .text(`${chosenYAxis}`)
+                .text(`${label}`)
     
         //initialise tooltip, call the tip and event usage
             updateToolTip(chosenXAxis,chosenYAxis,circlesGroups);
@@ -444,10 +443,9 @@ function makeResponsive(chosenYAxis){
      }
     init(chosenYAxis);
 }
-
 makeResponsive(chosenYAxis);
 
-d3.select(window).on("resize", makeResponsive(chosenYAxis));
+d3.select(window).on("resize", makeResponsive);
 
 
 
