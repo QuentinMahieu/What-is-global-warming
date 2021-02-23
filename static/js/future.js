@@ -117,7 +117,7 @@ function plotline(value) {
 
     years =data.map(d=> d.Year)
     feature = data.map(d=> + d[value])
-    
+
     var year = years[0]
     var feat = feature[0]
 
@@ -131,7 +131,7 @@ function plotline(value) {
       line: { shape: "spline" ,color:'sandybrown'},
       fill: "none",
     };
-    var data = [trace1];
+    var dat = [trace1];
 
     var update = {
         title : {text:`${title}`,
@@ -186,7 +186,66 @@ function plotline(value) {
     }
     
     Plotly.relayout("linechart", update);
-    Plotly.addTraces("linechart", data);
+    Plotly.addTraces("linechart", dat);
+
+    if (value === 'global_anom'){
+        var bound = data.filter(d=> + (d[value] >= 1.98 && d[value] <= 2.01))
+        console.log(bound[0][value])
+        var update2 = {
+            annotations:[
+                {
+                    xref: 'paper',
+                    x: 1,
+                    y: feature[feature.length -1],
+                    xanchor: 'right',
+                    yanchor: 'bottom',
+                    text: feature[feature.length -1].toFixed(2) +''+ t,
+                    font:{
+                      family: 'Arial',
+                      size: 16,
+                      color: 'sandybrown',
+                    },
+                    bgcolor:"rgba(255,255,255,0.8)",
+                    showarrow: false
+                  },
+                  {
+                      xref: 'paper',
+                      x: 0.05,
+                      y: feature[0],
+                      xanchor: 'right',
+                      yanchor: 'bottom',
+                      text: feature[0].toFixed(2) +''+ t,
+                      font:{
+                      family: 'Arial',
+                      size: 16,
+                      color: 'sandybrown',
+                      },
+                      bgcolor:"rgba(255,255,255,0.8)",
+                      showarrow: false
+              },
+                {
+                xref: 'paper',
+                x: 0.6,
+                y: bound[0][value],
+                xanchor: 'right',
+                yanchor: 'bottom',
+                text: bound[0][value].toFixed(2) +''+ t,
+                font:{
+                  family: 'Arial',
+                  size: 16,
+                  color: 'Red',
+                },
+                bgcolor:"rgba(255,255,255,0.8)",
+                showarrow: true,
+                arrowcolor: 'red',
+                arrowhead: 3,
+                ax: -25,
+                ay: -40
+              }
+            ],
+        };
+        Plotly.relayout("linechart",update2,[1])
+    }
 
     var cnt = 1;
     
