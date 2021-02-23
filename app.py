@@ -103,14 +103,14 @@ def impact():
     if select == '':
         prediction = "Wrong number given"
     else:
-        select = float(select)/1000000000
-        y = np.array(select).reshape(-1,1)
+        y = np.array([2021,float(select),1.24,1.05]).reshape(1,-1)
 
-        filename = 'models/global_anomalie_pred.sav'
+        filename = 'models/aus_anomalie_pred.sav'
         loaded_model = joblib.load(filename)
+        score = 0.9994*100
         prediction = loaded_model.predict(y)
         prediction = prediction.ravel()
-        prediction = f'{round(prediction.item(0),2)} °C increase in temperature.'
+        prediction = f'+ {round(prediction.item(0),2)} °C in temperature in 2021 vs 1.15°C in 2020. With {round(score,2)}% accuraccy.'
 
     return render_template("future.html", temperature = prediction)
 

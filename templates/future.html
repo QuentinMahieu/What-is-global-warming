@@ -72,12 +72,15 @@
             <br style="line-height: 30%;">The idea is to visualise how these 3 features evolve if we don't change anything in the way we live by
             <strong>2100.</strong>. 
           </p>
-          <h4 style="color: #7395AE;text-align: center;"><ul>Measure your impact!</ul></h4>
+          <h4 style="color: #7395AE;text-align: center;margin-top: -2%;"><ul>Measure your impact!</ul></h4>
+          <h6 style="color: #7395AE;;margin-top: -2%;">The CO2 per capita was 17.27 tonnes in 2019,
+             measure <a href="https://www.carbonfootprint.com/calculator.aspx" style='color: #7395AE;'>here</a> your footprint and
+            see what happens if everybody had the same footprint in Australia.</h6>
           <form method="POST" action="{{url_for('impact')}}">
-            <label for="CO2">Enter here your Co2 Emission (in Tonnes): </label>
-            <input type="text" id="CO2" name="CO2" placeholder="2.3 tonnes"><input id="submitbutton" type="submit" value="Submit">
+            <label for="CO2">Enter your Co2 emission (in Tonnes): </label>
+            <input type="text" id="CO2" name="CO2" placeholder="17.27"><input id="submitbutton" type="submit" value="Submit">
           </form>
-          <p>{{temperature}}</p> 
+          <h6 style="border-radius: 25px;border-style: dashed;border-color: #7395AE;padding: 1%; margin-top: 1%;text-align: center;">{{temperature}}</h6> 
         </div>
       </div>
       <div id ="future" class='row mt-4' style="height: 550px;">
