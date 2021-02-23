@@ -7,7 +7,7 @@ import numpy as np
 from sklearn.linear_model import LinearRegression
 from pymongo import MongoClient
 import pymongo
-from config import mongo
+# from config import mongo
 
 #################################################
 # Database Setup
