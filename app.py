@@ -9,6 +9,7 @@ from pymongo import MongoClient
 import pymongo
 # from config import mongo
 
+mongo = os.environ.get('mongo', None)
 #################################################
 # Database Setup
 #################################################

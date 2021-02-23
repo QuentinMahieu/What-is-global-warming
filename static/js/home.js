@@ -235,7 +235,7 @@ function make_map(){
         maxZoom: 7,
         zoomOffset: -1,
         id: "mapbox/light-v10",
-        accessToken: API_KEY,
+        accessToken: process.env.API_KEY,
         }).addTo(myMap);
       
       var geojson;
