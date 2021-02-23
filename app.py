@@ -7,9 +7,9 @@ import numpy as np
 from sklearn.linear_model import LinearRegression
 from pymongo import MongoClient
 import pymongo
-# from config import mongo
 
-mongo = os.environ.get('mongo', None)
+
+mongo = "MonashBootcamp"
 #################################################
 # Database Setup
 #################################################
