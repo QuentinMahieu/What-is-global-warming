@@ -38,7 +38,7 @@ def effects():
 
 @app.route("/future")
 def future():
-    return render_template("future.html", )
+    return render_template("future.html")
 
 @app.route("/project")
 def projetcInfo():
@@ -94,7 +94,7 @@ def seaLevel():
   
     return (jsonify(sea_level_data))
 
-@app.route("/predictmyimpact",methods=['GET','POST'])
+@app.route("/impact",methods=['GET','POST'])
 def impact():
     # Collect the data
     if request.method == 'POST':

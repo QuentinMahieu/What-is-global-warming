@@ -83,8 +83,7 @@ function plotline(value) {
   d3.json("/glob_projection/data").then((data, error) => {
     // d3.csv("../../data/cleaned/global_projection.csv").then((data, error) => {
     if (error) throw error;
-    // d3.select('#titlecause').html("");
-    // d3.select('#textcause').html("");
+    
     d3.select('#logos').selectAll('li').remove();
     try{
         Plotly.deleteTraces("linechart", 1);

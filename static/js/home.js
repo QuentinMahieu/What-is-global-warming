@@ -141,7 +141,8 @@ function country_chart(country){
     // d3.csv("../../data/cleaned/avg_temp_per_country.csv").then((data, error) => {
         if (error) throw error;
         //upload the dropdown
-       
+      
+
         data = data.filter((d)=>d.Country == country)
         // calculation of baseline per country
         function average(nums) {
@@ -215,7 +216,7 @@ function country_chart(country){
     });
 };
 function make_map(){
-  
+
     d3.select('#map_holder')
       .append('div')
       .attr('id','country_map')
@@ -308,12 +309,12 @@ var country_selected = d3.select("#countries");
 country_selected.on("change", updateData);
 
 function updateData() {
+  d3.event.preventDefault();
   d3.select("#country_temp_chart").remove();
   var value = d3.select("#countries").node().value;
   country = value;
   d3.select("#avg_temp_country").append("div").attr("id", "country_temp_chart");
   country_chart(country);
-  make_map(country)
 }
 init(country)
 }
